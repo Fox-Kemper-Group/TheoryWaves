@@ -65,43 +65,9 @@
   ! Note: cvmix_kpp_compute_OBL_depth would be part of cvmix_coeffs_kpp but
   !       CVMix can not smooth the boundary layer depth or correct the
   !       buoyancy flux term
-  public :: cvmix_kpp_compute_OBL_depth
-  public :: cvmix_coeffs_kpp
-  public :: cvmix_put_kpp
-  public :: cvmix_get_kpp_real
-  public :: cvmix_kpp_compute_bulk_Richardson
-  public :: cvmix_kpp_compute_turbulent_scales
-  public :: cvmix_kpp_compute_unresolved_shear
   ! These are public for testing, may end up private later
-  public :: cvmix_kpp_compute_shape_function_coeffs
-  public :: cvmix_kpp_compute_kOBL_depth
-  public :: cvmix_kpp_compute_enhanced_diff
-  public :: cvmix_kpp_compute_nu_at_OBL_depth_LMD94
-  public :: cvmix_kpp_EFactor_model
-  public :: cvmix_kpp_ustokes_SL_model
-
-
-  interface cvmix_coeffs_kpp
-    module procedure cvmix_coeffs_kpp_low
-    module procedure cvmix_coeffs_kpp_wrap
-  end interface cvmix_coeffs_kpp
-
-  interface cvmix_put_kpp
-    module procedure cvmix_put_kpp_int
-    module procedure cvmix_put_kpp_real
-    module procedure cvmix_put_kpp_logical
-  end interface cvmix_put_kpp
-
-  interface cvmix_kpp_compute_OBL_depth
-    module procedure cvmix_kpp_compute_OBL_depth_low
-    module procedure cvmix_kpp_compute_OBL_depth_wrap
-  end interface cvmix_kpp_compute_OBL_depth
-
-  interface cvmix_kpp_compute_turbulent_scales
-    module procedure cvmix_kpp_compute_turbulent_scales_0d
-    module procedure cvmix_kpp_compute_turbulent_scales_1d_sigma
-    module procedure cvmix_kpp_compute_turbulent_scales_1d_OBL
-  end interface cvmix_kpp_compute_turbulent_scales
+  public :: EFactor_model
+  public :: ustokes_SL_model
 
 ! !PUBLIC TYPES:
 
@@ -208,7 +174,7 @@ contains
 
 !EOC
 
-  function cvmix_kpp_EFactor_model(u10, ustar, hbl, CVmix_params_in)
+  function EFactor_model(u10, ustar, hbl, CVmix_params_in)
 
 ! This function returns the enhancement factor, given the 10-meter
 ! wind (m/s), friction velocity (m/s) and the boundary layer depth (m).
@@ -227,27 +193,27 @@ contains
 
 ! Local variables
     real(cvmix_r8) :: us_sl, lasl_sqr_i
-    real(cvmix_r8) :: cvmix_kpp_EFactor_model
+    real(cvmix_r8) :: EFactor_model
 
     if (u10 .gt. cvmix_zero .and. ustar .gt. cvmix_zero) then
       ! surface layer averaged Stokes drift
-      us_sl = cvmix_kpp_ustokes_SL_model(u10, hbl, CVmix_params_in)
+      us_sl = ustokes_SL_model(u10, hbl, CVmix_params_in)
       !
       ! LaSL^{-2}
       lasl_sqr_i = us_sl/ustar
       !
       ! enhancement factor (Li et al., 2016)
-      cvmix_kpp_EFactor_model = sqrt(cvmix_one &
+      EFactor_model = sqrt(cvmix_one &
                  +cvmix_one/1.5_cvmix_r8**2*lasl_sqr_i &
                  +cvmix_one/5.4_cvmix_r8**4*lasl_sqr_i**2)
     else
       ! otherwise set to one
-      cvmix_kpp_EFactor_model = cvmix_one
+      EFactor_model = cvmix_one
     endif
 
-  end function cvmix_kpp_EFactor_model
+  end function EFactor_model
 
-  function cvmix_kpp_ustokes_SL_model(u10, hbl, CVmix_params_in)
+  function ustokes_SL_model(u10, hbl, CVmix_params_in)
 
 ! This function returns the surface layer averaged Stokes drift, given
 ! the 10-meter wind (m/s) and the boundary layer depth (m).
@@ -276,7 +242,7 @@ contains
 
     real(cvmix_r8) :: us, hm0, fm, fp, vstokes, kphil, kstar
     real(cvmix_r8) :: z0, z0i, r1, r2, r3, r4, tmp
-    real(cvmix_r8) :: cvmix_kpp_ustokes_SL_model
+    real(cvmix_r8) :: ustokes_SL_model
 
     if (u10 .gt. cvmix_zero) then
       ! surface Stokes drift
@@ -322,11 +288,11 @@ contains
       r4 = (0.125_cvmix_r8+0.0946_cvmix_r8/kstar*z0i) &
              *sqrt(2.0_cvmix_r8*cvmix_PI*kstar*z0) &
              *erfc(sqrt(2.0_cvmix_r8*kstar*z0))
-      cvmix_kpp_ustokes_SL_model = us*(0.715_cvmix_r8+r1+r2+r3+r4)
+      ustokes_SL_model = us*(0.715_cvmix_r8+r1+r2+r3+r4)
     else
-      cvmix_kpp_ustokes_SL_model = cvmix_zero
+      ustokes_SL_model = cvmix_zero
     endif
 
-    end function cvmix_kpp_ustokes_SL_model
+    end function ustokes_SL_model
 
 end module theorywaves
