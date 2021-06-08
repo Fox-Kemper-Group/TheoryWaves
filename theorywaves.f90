@@ -17,26 +17,7 @@
 !\\
 
 ! !USES:
-
-  use cvmix_kinds_and_types, only : cvmix_r8,                                 &
-                                    cvmix_strlen,                             &
-                                    cvmix_zero,                               &
-                                    cvmix_one,                                &
-                                    cvmix_PI,                                 &
-                                    cvmix_data_type,                          &
-                                    cvmix_global_params_type,                 &
-                                    CVMIX_OVERWRITE_OLD_VAL,                  &
-                                    CVMIX_SUM_OLD_AND_NEW_VALS,               &
-                                    CVMIX_MAX_OLD_AND_NEW_VALS
-  use cvmix_math, only :            CVMIX_MATH_INTERP_LINEAR,                 &
-                                    CVMIX_MATH_INTERP_QUAD,                   &
-                                    CVMIX_MATH_INTERP_CUBE_SPLINE,            &
-                                    cvmix_math_poly_interp,                   &
-                                    cvmix_math_cubic_root_find,               &
-                                    cvmix_math_evaluate_cubic
-  use cvmix_put_get,         only : cvmix_put
-  use cvmix_utils,           only : cvmix_update_wrap
-
+!  uses no other modules
 !EOP
 
   implicit none
@@ -46,129 +27,47 @@
 !BOP
 
 ! !DEFINED PARAMETERS:
-  integer, parameter :: CVMIX_KPP_INTERP_LMD94       = -1
-  integer, parameter :: CVMIX_KPP_MATCH_BOTH         = 1
-  integer, parameter :: CVMIX_KPP_MATCH_GRADIENT     = 2
-  integer, parameter :: CVMIX_KPP_SIMPLE_SHAPES      = 3
-  integer, parameter :: CVMIX_KPP_PARABOLIC_NONLOCAL = 4
-  integer, parameter :: NO_LANGMUIR_MIXING           = -1
-  integer, parameter :: LANGMUIR_MIXING_LWF16        = 1
-  integer, parameter :: LANGMUIR_MIXING_RWHGK16      = 2
-  integer, parameter :: NO_LANGMUIR_ENTRAINMENT      = -1
-  integer, parameter :: LANGMUIR_ENTRAINMENT_LWF16   = 1
-  integer, parameter :: LANGMUIR_ENTRAINMENT_LF17    = 2
-  integer, parameter :: LANGMUIR_ENTRAINMENT_RWHGK16 = 3
+
+  ! Kind Types:
+  ! Use double precision for floating point computations.
+  integer, parameter, public :: cvmix_r8       = selected_real_kind(15, 307)
+
+  ! Global parameters:
+  ! The constant 1 is used repeatedly. 
+  ! The value for pi is needed.
+  real(cvmix_r8), parameter, public :: cvmix_zero = real(0,cvmix_r8),         &
+                                       cvmix_one  = real(1,cvmix_r8)
+  real(cvmix_r8), parameter, public :: cvmix_PI   = &
+                                       3.14159265358979323846_cvmix_r8
 
 ! !PUBLIC MEMBER FUNCTIONS:
 
-  public :: cvmix_init_kpp
-  ! Note: cvmix_kpp_compute_OBL_depth would be part of cvmix_coeffs_kpp but
-  !       CVMix can not smooth the boundary layer depth or correct the
-  !       buoyancy flux term
-  ! These are public for testing, may end up private later
   public :: EFactor_model
   public :: ustokes_SL_model
 
 ! !PUBLIC TYPES:
 
-  ! cvmix_kpp_params_type contains the necessary parameters for KPP mixing
-  type, public :: cvmix_kpp_params_type
-    private
-      real(cvmix_r8) :: Ri_crit        ! Critical Richardson number
-                                       ! (OBL_depth = where bulk Ri = Ri_crit)
+  ! cvmix_global_params_type contains global parameters used by multiple
+  ! mixing methods.
+  type, public :: cvmix_global_params_type
+    ! maximum number of levels for any column
+    integer :: max_nlev
+             ! units: unitless
 
-      real(cvmix_r8) :: minOBLdepth    ! Minimum allowable OBL depth
-                                       ! (Default is 0 m => no minimum)
-      real(cvmix_r8) :: maxOBLdepth    ! Maximum allowable OBL depth
-                                       ! (Default is 0 m => no maximum)
-      real(cvmix_r8) :: minVtsqr       ! Minimum allowable unresolved shear
-                                       ! (Default is 1e-10 m^2/s^2)
+    real(cvmix_r8) :: Gravity = 9.80616_cvmix_r8
 
-      real(cvmix_r8) :: vonkarman      ! von Karman constant
+    ! Prandtl number
+    real(cvmix_r8) :: prandtl
+                    ! units: unitless
 
-      real(cvmix_r8) :: Cstar          ! coefficient for nonlinear transport
-      real(cvmix_r8) :: nonlocal_coeff ! Cs from Eq (20) in LMD94
-                                       ! Default value comes from paper, but
-                                       ! some users may set it = 1.
+    ! Fresh water and salt water densities
+    real(cvmix_r8) :: FreshWaterDensity
+    real(cvmix_r8) :: SaltWaterDensity
+                    ! units: kg m^-3
 
-      ! For velocity scale function, _m => momentum and _s => scalar (tracer)
-      real(cvmix_r8) :: zeta_m         ! parameter for computing vel scale func
-      real(cvmix_r8) :: zeta_s         ! parameter for computing vel scale func
-      real(cvmix_r8) :: a_m            ! parameter for computing vel scale func
-      real(cvmix_r8) :: c_m            ! parameter for computing vel scale func
-      real(cvmix_r8) :: a_s            ! parameter for computing vel scale func
-      real(cvmix_r8) :: c_s            ! parameter for computing vel scale func
-
-      real(cvmix_r8) :: surf_layer_ext ! nondimensional extent of surface layer
-                                       ! (expressed in sigma-coordinates)
-
-      integer        :: interp_type    ! interpolation type used to interpolate
-                                       ! bulk Richardson number
-      integer        :: interp_type2   ! interpolation type used to interpolate
-                                       ! diff and visc at OBL_depth
-
-      ! Cv is a parameter used to compute the unresolved shear. By default, the
-      ! formula from Eq. (A3) of Danabasoglu et al. is used, but a single
-      ! scalar value can be set instead.
-      real(cvmix_r8) :: Cv
-
-      ! MatchTechnique is set by a string of the same name as an argument in
-      ! cvmix_init_kpp. It determines how matching between the boundary layer
-      ! and ocean interior is handled at the interface. Note that this also
-      ! controls whether the shape function used to compute the coefficient in
-      ! front of the nonlocal term is the same as that used to compute the
-      ! gradient term.
-      ! Options (for cvmix_init_kpp) are
-      ! (i) SimpleShapes => Shape functions for both the gradient and nonlocal
-      !                     terms vanish at interface
-      ! (ii) MatchGradient => Shape function for nonlocal term vanishes at
-      !                       interface, but gradient term matches interior
-      !                       values.
-      ! (iii) MatchBoth => Shape functions for both the gradient and nonlocal
-      !                    term match interior values at interface
-      ! (iv) ParabolicNonLocal => Shape function for the nonlocal term is
-      !                         (1-sigma)^2, gradient term is sigma*(1-sigma)^2
-      integer :: MatchTechnique
-
-      ! Flag for what to do with old values of CVmix_vars%[MTS]diff
-      integer :: handle_old_vals
-
-      ! Logic flags to dictate if / how various terms are computed
-      logical        :: lscalar_Cv     ! True => use the scalar Cv value
-      logical        :: lEkman         ! True => compute Ekman depth limit
-      logical        :: lMonOb         ! True => compute Monin-Obukhov limit
-      logical        :: lnoDGat1       ! True => G'(1) = 0 (shape function)
-                                       ! False => compute G'(1) as in LMD94
-      logical        :: lenhanced_diff ! True => enhance diffusivity at OBL
-      integer        :: Langmuir_Mixing_Opt
-                                       ! Option of Langmuir enhanced mixing
-                                       ! - apply an enhancement factor to the
-                                       ! turbulent velocity scale
-      integer        :: Langmuir_Entrainment_Opt
-                                       ! Option of Langmuir turbulence enhanced
-                                       ! entrainment - modify the unresolved shear
-      logical        :: l_LMD_ws       ! flag to use original Large et al. (1994)
-                                       ! equations for computing turbulent scales
-                                       ! rather than the updated methodology in
-                                       ! Danabasoglu et al. (2006). The latter
-                                       ! limits sigma to be < surf_layer_extent
-                                       ! when computing turbulent scales while
-                                       ! the former only imposes this restriction
-                                       ! in unstable regimes.
-      real(cvmix_r8) :: c_LT, c_ST, c_CT  ! Empirical constants in the scaling of the
-                                          ! entrainment buoyancy flux
-                                          ! (20) in Li and Fox-Kemper, 2017, JPO
-      real(cvmix_r8) :: p_LT              ! Power of Langmuir number in the above
-                                          ! scaling
-      !BGR
-      real(cvmix_r8) :: RWHGK_ENTR_COEF,& ! Coefficient and exponent from
-                        RWHGK_ENTR_EXP    ! RWHGK16 Langmuir parameterization
-
-  end type cvmix_kpp_params_type
+  end type cvmix_global_params_type
 
 !EOP
-
-type(cvmix_kpp_params_type), target :: CVmix_kpp_params_saved
 
 contains
 
