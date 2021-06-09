@@ -21,8 +21,8 @@
 !EOP
 
   implicit none
-  private
-  save
+!  private
+!  save
 
 !BOP
 
