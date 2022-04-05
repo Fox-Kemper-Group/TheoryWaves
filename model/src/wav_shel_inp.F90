@@ -139,7 +139,7 @@ contains
     flgrd( 1, 7)  = .false. ! Iceberg damp coeffic
 
     ! 2) Standard mean wave parameters
-    flgrd( 2, 1)  = .true.  ! Wave height
+    flgrd( 2, 1)  = .false.  ! Wave height
     flgrd( 2, 2)  = .false. ! Mean wave length
     flgrd( 2, 3)  = .true.  ! Mean wave period(+2)
     flgrd( 2, 4)  = .true.  ! Mean wave period(-1)
