@@ -2036,6 +2036,9 @@
        END IF
 #endif
 
+!PSH
+      GOTO 380
+
 !
 ! 3.6 Perform Propagation = = = = = = = = = = = = = = = = = = = = = = =
 ! 3.6.1 Preparations
