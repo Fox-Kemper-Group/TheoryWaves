@@ -2588,6 +2588,9 @@
 !
 ! 3.6 End propapgation  = = = = = = = = = = = = = = = = = = = = = = = =
 
+!PSH
+        GOTO 380
+
 ! 3.7 Calculate and integrate source terms.
 !
   370     CONTINUE
