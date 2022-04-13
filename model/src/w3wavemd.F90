@@ -2036,6 +2036,9 @@
        END IF
 #endif
 
+!PSH Attempt to set significant height values directly
+      HS(:)=5.
+
 !PSH
       GOTO 380
 
