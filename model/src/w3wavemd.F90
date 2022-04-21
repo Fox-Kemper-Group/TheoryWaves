@@ -1374,6 +1374,9 @@
           ELSE IF ( FLFRST ) THEN
             RHOAIR = DAIR
           END IF
+!PSH
+       GOTO 380
+
 !
 ! 3.2 Update boundary conditions if boundary flag is true (FLBPI)
 !
@@ -2037,7 +2040,7 @@
 #endif
 
 !PSH Attempt to set significant height values directly
-      HS(:)=5.
+!      HS(:)=5.
 
 !PSH
       GOTO 380
