@@ -2827,6 +2827,13 @@
 !     (Branch point FLDRY, IT=0)
 !
   380     CONTINUE
+
+!PSH TheoryWave begin
+       DO ISEA=1, NSEA
+         HS(ISEA) = 3.15894
+       END DO
+!PSH TheoryWave end
+
 !
 #ifdef W3_DEBUGRUN
         WRITE(740+IAPROC,*) 'W3WAVE, step 6.20'
