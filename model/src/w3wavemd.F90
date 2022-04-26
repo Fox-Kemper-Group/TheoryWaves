@@ -1374,9 +1374,6 @@
           ELSE IF ( FLFRST ) THEN
             RHOAIR = DAIR
           END IF
-!PSH
-!       GOTO 380
-
 !
 ! 3.2 Update boundary conditions if boundary flag is true (FLBPI)
 !
@@ -2039,11 +2036,10 @@
        END IF
 #endif
 
-!PSH Attempt to set significant height values directly
-!      HS(:)=5.
-
-!PSH
+!PSH TheoryWave begin
+!skip main wave model
       GOTO 380
+!PSH TheoryWave end
 
 !
 ! 3.6 Perform Propagation = = = = = = = = = = = = = = = = = = = = = = =
@@ -2597,9 +2593,6 @@
 !
 ! 3.6 End propapgation  = = = = = = = = = = = = = = = = = = = = = = = =
 
-!PSH
-        GOTO 380
-
 ! 3.7 Calculate and integrate source terms.
 !
   370     CONTINUE
@@ -2830,7 +2823,7 @@
 
 !PSH TheoryWave begin
        DO ISEA=1, NSEA
-         HS(ISEA) = 3.15894
+!         HS(ISEA) = 3.15894
        END DO
 !PSH TheoryWave end
 
