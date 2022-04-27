@@ -2038,7 +2038,7 @@
 
 !PSH TheoryWave begin
 !skip main wave model
-      GOTO 380
+!      GOTO 380
 !PSH TheoryWave end
 
 !
@@ -2822,9 +2822,9 @@
   380     CONTINUE
 
 !PSH TheoryWave begin
-       DO ISEA=1, NSEA
+!       DO ISEA=1, NSEA
 !         HS(ISEA) = 3.15894
-       END DO
+!       END DO
 !PSH TheoryWave end
 
 !
