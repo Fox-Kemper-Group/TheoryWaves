@@ -1219,6 +1219,9 @@
                           ICPRT, DTPRT, WSCUT, NOSWLL, FLOGRD, FLOGR2,&
                           NOGRP, NGRPP
       USE W3ADATMD, ONLY: NSEALM
+!PSH TheoryWaves begin
+      USE W3ADATMD, ONLY: U10, U10D, WBT
+!PSH TheoryWaves end
 #ifdef CESMCOUPLED
       ! USSX, USSY   : surface Stokes drift (SD)
       ! USSXH, USSYH : surface layer (SL) averaged SD
@@ -2030,8 +2033,8 @@
 #endif
 !PSH TheoryWaves begin
 !            HS (JSEA) = 4. * SQRT ( ET(JSEA) ) ! original formulation
-!            HS(JSEA) = U10(JSEA)
-            HS(JSEA) = 0.0246 * U10(JSEA)**2
+            HS(JSEA) = U10(JSEA)
+!            HS(JSEA) = 0.0246 * U10(JSEA)**2
 !PSH TheoryWaves end
 #ifdef W3_O9
               ELSE
