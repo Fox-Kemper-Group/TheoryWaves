@@ -2030,7 +2030,7 @@
 #endif
 !PSH TheoryWaves begin
 !            HS (JSEA) = 4. * SQRT ( ET(JSEA) )
-            HS (JSEA) = 3.15894
+            HS(JSEA) = U10(JSEA)
 !PSH TheoryWaves end
 #ifdef W3_O9
               ELSE
