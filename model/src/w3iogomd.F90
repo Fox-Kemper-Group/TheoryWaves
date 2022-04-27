@@ -1964,7 +1964,7 @@
 #ifdef CESMCOUPLED
         IX = MAPSF(ISEA,1)
         IY = MAPSF(ISEA,2)
-        HS = HML(IX,IY)/5.     ! depth over which SD is averaged
+        HS = HML(IX,IY)/5.     ! depth over which SD is averaged !PSH Should be HSL, not HS?
 #endif
 !
 ! 3.a Directional mss parameters
@@ -2028,7 +2028,10 @@
 #ifdef W3_O9
             IF ( ET(JSEA) .GE. 0. ) THEN
 #endif
-            HS (JSEA) = 4. * SQRT ( ET(JSEA) )
+!PSH TheoryWaves begin
+!            HS (JSEA) = 4. * SQRT ( ET(JSEA) )
+            HS (JSEA) = 3.15894
+!PSH TheoryWaves end
 #ifdef W3_O9
               ELSE
                 HS (JSEA) = - 4. * SQRT ( -ET(JSEA) )
