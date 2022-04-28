@@ -2038,7 +2038,7 @@
 
 !PSH TheoryWave begin
 !skip main wave model
-!      GOTO 380
+      GOTO 380
 !PSH TheoryWave end
 
 !
