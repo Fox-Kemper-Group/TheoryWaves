@@ -449,6 +449,12 @@ contains
                    FLDSTR1 = 'WBT'
                    UNITSTR1 = 'm'
                    LNSTR1 = 'Dominant wave breaking probability b'
+                else if ( IFI .eq. 2 .and. IFJ .eq. 18 ) then
+                   AUX1(1:NSEA) = HS(1:NSEA)
+                   WAUX1 = .true.
+                   FLDSTR1 = 'TW01'
+                   UNITSTR1 = 'm'
+                   LNSTR1 = 'TheoryWaves test' 
                 !
                 ! Section 3)
                 !
