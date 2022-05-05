@@ -156,7 +156,7 @@ contains
     flgrd( 2, 15) = .false. ! STD Space-Time Hmax
     flgrd( 2, 16) = .false. ! STD ST Hmax^crest
     flgrd( 2, 17) = .false. ! Dominant wave bT
-    flgrd( 2, 18) = .false. ! TheoryWaves test
+    flgrd( 2, 18) = .true.  ! TheoryWaves test
 
     ! 3) Frequency-dependent standard parameters
     ! Whether the 1D Freq. Spectrum gets allocated is decided in the grid_inp file
