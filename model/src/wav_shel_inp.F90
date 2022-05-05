@@ -238,7 +238,9 @@ contains
     flgrd( 9, 5)  = .false. ! 'Maximum k advect CFL'
 
     ! 10) is user defined
-
+!PSH begin
+    flgrd(10, 1)  = .true.  ! 'Generic Test field 1'
+!PSH end
     ! write out which fields will be output to first hist file
     ! IDOUT(NOGRP,NGRPP)
     !   NOGRP = number of output field groups
