@@ -239,7 +239,7 @@ contains
 
     ! 10) is user defined
 !PSH begin
-    flgrd(10, 1)  = .true.  ! 'Generic Test field 1'
+!    flgrd(10, 1)  = .true.  ! 'Generic Test field 1'
 !PSH end
     ! write out which fields will be output to first hist file
     ! IDOUT(NOGRP,NGRPP)

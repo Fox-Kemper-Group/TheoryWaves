@@ -575,20 +575,20 @@ contains
                    !     Section 10)
                    !
 !PSH Begin
-                else if ( IFI .eq. 10 .and. IFJ .eq. 1 ) then
-                   AUX1(1:NSEA) = HS(1:NSEA)
-                   WAUX1 = .true.
-                   FLDSTR1 = 'TW01'
-                   UNITSTR1 = 'm'
-                   LNSTR1 = 'TheoryWaves variable 01'
-                end if
-!                else if ( IFI .eq. 10 ) then
-!                   AUX1(1:NSEA) = USERO(1:NSEA,2)
+!                else if ( IFI .eq. 10 .and. IFJ .eq. 1 ) then
+!                   AUX1(1:NSEA) = HS(1:NSEA)
 !                   WAUX1 = .true.
-!                   FLDSTR1 = 'USERO'
-!                   UNITSTR1 = '1' 
-!                   LNSTR1 = 'User defined variable'
+!                   FLDSTR1 = 'TW01'
+!                   UNITSTR1 = 'm'
+!                   LNSTR1 = 'TheoryWaves variable 01'
 !                end if
+                else if ( IFI .eq. 10 ) then
+                   AUX1(1:NSEA) = USERO(1:NSEA,2)
+                   WAUX1 = .true.
+                   FLDSTR1 = 'USERO'
+                   UNITSTR1 = '1' 
+                   LNSTR1 = 'User defined variable'
+                end if
 !PSH End
                 ! netcdf history
                 if (NCLOOP == 1) then
