@@ -360,7 +360,7 @@ contains
                    UNITSTR1 = 'm/s'   
                    LNSTR1 = 'Water-side friction velocity'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 10 ) then
-                   AUX1(1:NSEA) = HML(1:NSEA)
+                   AUX1(1:NSEA) = U10(1:NSEA)
                    WAUX1 = .true.
                    FLDSTR1 = 'HML'
                    UNITSTR1 = 'm'   
