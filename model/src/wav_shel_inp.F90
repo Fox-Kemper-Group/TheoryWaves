@@ -139,7 +139,7 @@ contains
     flgrd( 1, 7)  = .false. ! Iceberg damp coeffic
     flgrd( 1, 8)  = .true. ! Wind speed at 10 m (U10)
     flgrd( 1, 9)  = .true. ! Water-side friction velocity (U)
-    flgrd( 1, 10) = .true. ! Boundary layer depth (HBL)
+    flgrd( 1, 10) = .true. ! Boundary layer depth (HML)
 
     ! 2) Standard mean wave parameters
     flgrd( 2, 1)  = .true.  ! Wave height

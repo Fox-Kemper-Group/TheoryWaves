@@ -30,6 +30,7 @@ contains
     USE W3ADATMD, ONLY: TH1M, STH1M, TH2M, STH2M, HSIG, PHICE, TAUICE
     USE W3ADATMD, ONLY: STMAXE, STMAXD, HMAXE, HCMAXE, HMAXD, HCMAXD, USSP
 !PSH TheoryWaves begin
+    USE W3IDATMD, ONLY: HML
     USE W3ADATMD, ONLY: U10, U10D, WBT
 !PSH TheoryWaves end
     USE NETCDF
@@ -359,11 +360,11 @@ contains
                    UNITSTR1 = 'm/s'   
                    LNSTR1 = 'Water-side friction velocity'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 10 ) then
-                   AUX1(1:NSEA) = U10(1:NSEA)
+                   AUX1(1:NSEA) = HML(1:NSEA)
                    WAUX1 = .true.
-                   FLDSTR1 = 'HBL'
+                   FLDSTR1 = 'HML'
                    UNITSTR1 = 'm'   
-                   LNSTR1 = 'Boundary Layer Depth'
+                   LNSTR1 = 'Mixed-Layer Depth'
 !PSH TheoryWaves end 
                 !
                 !     Section 2)
