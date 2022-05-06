@@ -345,13 +345,32 @@ contains
                    FLDSTR1 = 'BERG'
                    UNITSTR1 = '1'
                    LNSTR1 = ''
+!PSH TheoryWaves begin 
+                else if ( IFI .eq. 1 .and. IFJ .eq. 8 ) then
+                   AUX1(1:NSEA) = U10(1:NSEA)
+                   WAUX1 = .true.
+                   FLDSTR1 = 'U10'
+                   UNITSTR1 = 'm/s'
+                   LNSTR1 = 'Wind speed at 10 m'
+                else if ( IFI .eq. 1 .and. IFJ .eq. 9 ) then
+                   AUX1(1:NSEA) = U10(1:NSEA)
+                   WAUX1 = .true.
+                   FLDSTR1 = 'U'
+                   UNITSTR1 = 'm/s'   
+                   LNSTR1 = 'Water-side friction velocity'
+                else if ( IFI .eq. 1 .and. IFJ .eq. 10 ) then
+                   AUX1(1:NSEA) = U10(1:NSEA)
+                   WAUX1 = .true.
+                   FLDSTR1 = 'HBL'
+                   UNITSTR1 = 'm'   
+                   LNSTR1 = 'Boundary Layer Depth'
+!PSH TheoryWaves end 
                 !
                 !     Section 2)
                 !
                 else if ( IFI .eq. 2 .and. IFJ .eq. 1 ) then
                    AUX1(1:NSEA) = HS(1:NSEA)
-                   WAUX1 = .true.
-                   FLDSTR1 = 'HS'
+
                    UNITSTR1 = 'm'
                    LNSTR1 = 'Significant wave height'
                 else if ( IFI .eq. 2 .and. IFJ .eq. 2 ) then
@@ -449,12 +468,14 @@ contains
                    FLDSTR1 = 'WBT'
                    UNITSTR1 = 'm'
                    LNSTR1 = 'Dominant wave breaking probability b'
-                else if ( IFI .eq. 2 .and. IFJ .eq. 18 ) then
-                   AUX1(1:NSEA) = U10(1:NSEA)
-                   WAUX1 = .true.
-                   FLDSTR1 = 'U10'
-                   UNITSTR1 = 'm/s'
-                   LNSTR1 = 'Wind speed at 10 m' 
+!PSH begin
+!                else if ( IFI .eq. 2 .and. IFJ .eq. 18 ) then
+!                   AUX1(1:NSEA) = U10(1:NSEA)
+!                   WAUX1 = .true.
+!                   FLDSTR1 = 'U10'
+!                   UNITSTR1 = 'm/s'
+!                   LNSTR1 = 'Wind speed at 10 m' 
+!PSH end
                 !
                 ! Section 3)
                 !

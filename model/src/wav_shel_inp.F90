@@ -137,6 +137,9 @@ contains
     flgrd( 1, 5)  = .false. ! Water level
     flgrd( 1, 6)  = .true.  ! Ice concentration
     flgrd( 1, 7)  = .false. ! Iceberg damp coeffic
+    flgrd( 1, 8)  = .true. ! Wind speed at 10 m (U10)
+    flgrd( 1, 9)  = .true. ! Water-side friction velocity (U)
+    flgrd( 1, 10) = .true. ! Boundary layer depth (HBL)
 
     ! 2) Standard mean wave parameters
     flgrd( 2, 1)  = .true.  ! Wave height
@@ -156,7 +159,7 @@ contains
     flgrd( 2, 15) = .false. ! STD Space-Time Hmax
     flgrd( 2, 16) = .false. ! STD ST Hmax^crest
     flgrd( 2, 17) = .false. ! Dominant wave bT
-    flgrd( 2, 18) = .true.  ! TheoryWaves test
+!    flgrd( 2, 18) = .true.  ! 
 
     ! 3) Frequency-dependent standard parameters
     ! Whether the 1D Freq. Spectrum gets allocated is decided in the grid_inp file
@@ -239,9 +242,7 @@ contains
     flgrd( 9, 5)  = .false. ! 'Maximum k advect CFL'
 
     ! 10) is user defined
-!PSH begin
-!    flgrd(10, 1)  = .true.  ! 'Generic Test field 1'
-!PSH end
+
     ! write out which fields will be output to first hist file
     ! IDOUT(NOGRP,NGRPP)
     !   NOGRP = number of output field groups
