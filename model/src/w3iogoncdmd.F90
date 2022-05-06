@@ -29,6 +29,9 @@ contains
     USE W3ADATMD, ONLY: CFLXYMAX, CFLTHMAX, CFLKMAX, P2SMS, US3D
     USE W3ADATMD, ONLY: TH1M, STH1M, TH2M, STH2M, HSIG, PHICE, TAUICE
     USE W3ADATMD, ONLY: STMAXE, STMAXD, HMAXE, HCMAXE, HMAXD, HCMAXD, USSP
+!PSH TheoryWaves begin
+    USE W3ADATMD, ONLY: U10, U10D, WBT
+!PSH TheoryWaves end
     USE NETCDF
 
     IMPLICIT NONE
@@ -229,9 +232,6 @@ contains
           IF ( FLOGRD( 9, 4) ) CFLTHMAX(ISEA) = UNDEF
           IF ( FLOGRD( 9, 5) ) CFLKMAX(ISEA) = UNDEF
           !
-!PSH Begin
-!          IF ( FLOGRD(10, 1) ) TW01(ISEA) = UNDEF
-!PSH End
        END IF
        !
        IF ( MAPSTA(MAPSF(ISEA,2),MAPSF(ISEA,1)) == 2 ) THEN
@@ -450,11 +450,11 @@ contains
                    UNITSTR1 = 'm'
                    LNSTR1 = 'Dominant wave breaking probability b'
                 else if ( IFI .eq. 2 .and. IFJ .eq. 18 ) then
-                   AUX1(1:NSEA) = HS(1:NSEA)
+                   AUX1(1:NSEA) = U10(1:NSEA)
                    WAUX1 = .true.
-                   FLDSTR1 = 'TW01'
-                   UNITSTR1 = 'm'
-                   LNSTR1 = 'TheoryWaves test' 
+                   FLDSTR1 = 'U10'
+                   UNITSTR1 = 'm/s'
+                   LNSTR1 = 'Wind speed at 10 m' 
                 !
                 ! Section 3)
                 !
@@ -580,14 +580,6 @@ contains
                    !
                    !     Section 10)
                    !
-!PSH Begin
-!                else if ( IFI .eq. 10 .and. IFJ .eq. 1 ) then
-!                   AUX1(1:NSEA) = HS(1:NSEA)
-!                   WAUX1 = .true.
-!                   FLDSTR1 = 'TW01'
-!                   UNITSTR1 = 'm'
-!                   LNSTR1 = 'TheoryWaves variable 01'
-!                end if
                 else if ( IFI .eq. 10 ) then
                    AUX1(1:NSEA) = USERO(1:NSEA,2)
                    WAUX1 = .true.
@@ -595,7 +587,6 @@ contains
                    UNITSTR1 = '1' 
                    LNSTR1 = 'User defined variable'
                 end if
-!PSH End
                 ! netcdf history
                 if (NCLOOP == 1) then
                    ! write(ndse,*) 'w3iogo NCLOOP=',NCLOOP, WAUX1, WAUX2, WAUX3,WAUXE,WAUXEF
