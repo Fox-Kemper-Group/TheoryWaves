@@ -112,6 +112,11 @@ contains
     ! -------------------------------------------------------------
 
     DO ISEA=1, NSEA
+!PSH TheoryWaves Begin
+       IX=MAPSF(ISEA,1)
+       IY=MAPSF(ISEA,2)
+       HML1(ISEA)=HML(IX,IY)
+!PSH TheoryWaves End
        IF ( MAPSTA(MAPSF(ISEA,2),MAPSF(ISEA,1)) .LT. 0 ) THEN
           !
           IF ( FLOGRD( 2, 2) ) WLM   (ISEA) = UNDEF
@@ -360,7 +365,15 @@ contains
                    UNITSTR1 = 'm/s'   
                    LNSTR1 = 'Water-side friction velocity'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 10 ) then
-                   AUX1(1:NSEA) = U10(1:NSEA)
+                   do ISEA=1, NSEA
+                      IX     = MAPSF(ISEA,1)
+                      IY     = MAPSF(ISEA,2)
+                      if ( MAPSTA(IY,IX) .eq. 1 ) then
+                         AUX1(ISEA) = HML(IX,IY)   
+                      else
+                         AUX1(ISEA) = UNDEF
+                      end if
+                   end do
                    WAUX1 = .true.
                    FLDSTR1 = 'HML'
                    UNITSTR1 = 'm'   
@@ -469,14 +482,6 @@ contains
                    FLDSTR1 = 'WBT'
                    UNITSTR1 = 'm'
                    LNSTR1 = 'Dominant wave breaking probability b'
-!PSH begin
-!                else if ( IFI .eq. 2 .and. IFJ .eq. 18 ) then
-!                   AUX1(1:NSEA) = U10(1:NSEA)
-!                   WAUX1 = .true.
-!                   FLDSTR1 = 'U10'
-!                   UNITSTR1 = 'm/s'
-!                   LNSTR1 = 'Wind speed at 10 m' 
-!PSH end
                 !
                 ! Section 3)
                 !
