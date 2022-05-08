@@ -112,11 +112,6 @@ contains
     ! -------------------------------------------------------------
 
     DO ISEA=1, NSEA
-!PSH TheoryWaves Begin
-       IX=MAPSF(ISEA,1)
-       IY=MAPSF(ISEA,2)
-       HML1(ISEA)=HML(IX,IY)
-!PSH TheoryWaves End
        IF ( MAPSTA(MAPSF(ISEA,2),MAPSF(ISEA,1)) .LT. 0 ) THEN
           !
           IF ( FLOGRD( 2, 2) ) WLM   (ISEA) = UNDEF
