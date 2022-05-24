@@ -356,7 +356,7 @@ contains
                 else if ( IFI .eq. 1 .and. IFJ .eq. 9 ) then
                    AUX1(1:NSEA) = ASF(1:NSEA)
                    WAUX1 = .true.
-                   FLDSTR1 = 'ASF'
+                   FLDSTR1 = 'UST'
                    UNITSTR1 = 'm/s'   
                    LNSTR1 = 'Water-side friction velocity'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 10 ) then
