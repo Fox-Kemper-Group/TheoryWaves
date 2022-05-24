@@ -365,7 +365,7 @@ contains
                       IX     = MAPSF(ISEA,1)
                       IY     = MAPSF(ISEA,2)
                       if ( MAPSTA(IY,IX) .eq. 1 ) then
-                         AUX1(ISEA) = UX0(IX,IY)   
+                         AUX1(ISEA) = HML(IX,IY)   
                       else
                          AUX1(ISEA) = UNDEF
                       end if
@@ -379,7 +379,7 @@ contains
                       IX     = MAPSF(ISEA,1)
                       IY     = MAPSF(ISEA,2)
                       if ( MAPSTA(IY,IX) .eq. 1 ) then
-                         AUX1(ISEA) = UY0(IX,IY)   
+                         AUX1(ISEA) = HML(IX,IY)   
                       else
                          AUX1(ISEA) = UNDEF
                       end if
