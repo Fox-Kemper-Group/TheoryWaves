@@ -31,6 +31,7 @@ contains
     USE W3ADATMD, ONLY: STMAXE, STMAXD, HMAXE, HCMAXE, HMAXD, HCMAXD, USSP
 !PSH TheoryWaves begin
     USE W3IDATMD, ONLY: HML
+    USE W3IDATMD, ONLY: TU0, UX0, UY0, TUN, UXN, UYN
     USE W3ADATMD, ONLY: U10, U10D, WBT
 !PSH TheoryWaves end
     USE NETCDF
@@ -354,7 +355,7 @@ contains
                    UNITSTR1 = 'm/s'
                    LNSTR1 = 'Wind speed at 10 m'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 9 ) then
-                   AUX1(1:NSEA) = ASF(1:NSEA)
+                   AUX1(1:NSEA) = UX0(1:NSEA)
                    WAUX1 = .true.
                    FLDSTR1 = 'UST'
                    UNITSTR1 = 'm/s'   
