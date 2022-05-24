@@ -354,13 +354,41 @@ contains
                    FLDSTR1 = 'U10'
                    UNITSTR1 = 'm/s'
                    LNSTR1 = 'Wind speed at 10 m'
+!                else if ( IFI .eq. 1 .and. IFJ .eq. 9 ) then
+!                   AUX1(1:NSEA) = UX0(1:NSEA)
+!                   WAUX1 = .true.
+!                   FLDSTR1 = 'UST'
+!                   UNITSTR1 = 'm/s'   
+!                   LNSTR1 = 'Water-side friction velocity'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 9 ) then
-                   AUX1(1:NSEA) = UX0(1:NSEA)
+                   do ISEA=1, NSEA
+                      IX     = MAPSF(ISEA,1)
+                      IY     = MAPSF(ISEA,2)
+                      if ( MAPSTA(IY,IX) .eq. 1 ) then
+                         AUX1(ISEA) = UX0(IX,IY)   
+                      else
+                         AUX1(ISEA) = UNDEF
+                      end if
+                   end do
                    WAUX1 = .true.
-                   FLDSTR1 = 'UST'
-                   UNITSTR1 = 'm/s'   
-                   LNSTR1 = 'Water-side friction velocity'
+                   FLDSTR1 = 'UX0'
+                   UNITSTR1 = 'kg*m/s/s'   
+                   LNSTR1 = 'Atmospheric momentum (x)'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 10 ) then
+                   do ISEA=1, NSEA
+                      IX     = MAPSF(ISEA,1)
+                      IY     = MAPSF(ISEA,2)
+                      if ( MAPSTA(IY,IX) .eq. 1 ) then
+                         AUX1(ISEA) = UY0(IX,IY)   
+                      else
+                         AUX1(ISEA) = UNDEF
+                      end if
+                   end do
+                   WAUX1 = .true.
+                   FLDSTR1 = 'UY0'
+                   UNITSTR1 = 'kg*m/s/s'   
+                   LNSTR1 = 'Atmospheric momentum (y)' 
+               else if ( IFI .eq. 1 .and. IFJ .eq. 11 ) then
                    do ISEA=1, NSEA
                       IX     = MAPSF(ISEA,1)
                       IY     = MAPSF(ISEA,2)
