@@ -138,8 +138,8 @@ contains
     flgrd( 1, 6)  = .true.  ! Ice concentration
     flgrd( 1, 7)  = .false. ! Iceberg damp coeffic
     flgrd( 1, 8)  = .true.  ! Wind speed at 10 m (U10)
-    flgrd( 1, 9)  = .true.  ! Atmospheric momentum, x-dir (UX0)
-    flgrd( 1, 10) = .true.  ! Atmospheric momentum, y-dir (UY0)
+    flgrd( 1, 9)  = .false.  ! Atmospheric momentum, x-dir (UX0)
+    flgrd( 1, 10) = .false.  ! Atmospheric momentum, y-dir (UY0)
     flgrd( 1, 11) = .true.  ! Boundary layer depth (HML)
 
     ! 2) Standard mean wave parameters
