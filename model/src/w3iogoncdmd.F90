@@ -372,7 +372,7 @@ contains
                    end do
                    WAUX1 = .true.
                    FLDSTR1 = 'UX0'
-                   UNITSTR1 = 'kg*m/s/s'   
+                   UNITSTR1 = 'kg*m/s'   
                    LNSTR1 = 'Atmospheric momentum (x)'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 10 ) then
                    do ISEA=1, NSEA
@@ -386,7 +386,7 @@ contains
                    end do
                    WAUX1 = .true.
                    FLDSTR1 = 'UY0'
-                   UNITSTR1 = 'kg*m/s/s'   
+                   UNITSTR1 = 'kg*m/s'   
                    LNSTR1 = 'Atmospheric momentum (y)' 
                else if ( IFI .eq. 1 .and. IFJ .eq. 11 ) then
                    do ISEA=1, NSEA
