@@ -649,7 +649,7 @@
           INPUTS(IMOD)%BERGI = 0.
         END IF
 !
-!      IF ( FLTAUA  ) THEN	! PSH
+      IF ( FLTAUA  ) THEN
 #ifdef W3_SMC
        IF( FSWND ) THEN
           ALLOCATE ( INPUTS(IMOD)%UX0(NSEA,1) ,              &
@@ -666,7 +666,7 @@
        ENDIF
 #endif
           CHECK_ALLOC_STATUS ( ISTAT )
-!        END IF		! PSH
+        END IF
 
 !
       IF ( FLRHOA  ) THEN

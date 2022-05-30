@@ -355,7 +355,7 @@ contains
                    UNITSTR1 = 'm/s'
                    LNSTR1 = 'Wind speed at 10 m'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 9 ) then
-                   AUX1(1:NSEA) = U10(1:NSEA)
+                   AUX1(1:NSEA) = UX0(1:NSEA)
                    WAUX1 = .true.
                    FLDSTR1 = 'UST'
                    UNITSTR1 = 'm/s'   
@@ -379,7 +379,7 @@ contains
                       IX     = MAPSF(ISEA,1)
                       IY     = MAPSF(ISEA,2)
                       if ( MAPSTA(IY,IX) .eq. 1 ) then
-                         AUX1(ISEA) = UY0(IX,IY)   
+                         AUX1(ISEA) = HML(IX,IY)   
                       else
                          AUX1(ISEA) = UNDEF
                       end if
