@@ -31,6 +31,7 @@ contains
     USE W3ADATMD, ONLY: STMAXE, STMAXD, HMAXE, HCMAXE, HMAXD, HCMAXD, USSP
 !PSH TheoryWaves begin
     USE W3IDATMD, ONLY: HML
+    USE W3IDATMD, ONLY: CX0, CY0, CXN, CYN
     USE W3IDATMD, ONLY: TU0, UX0, UY0, TUN, UXN, UYN
     USE W3ADATMD, ONLY: U10, U10D, WBT
 !PSH TheoryWaves end
@@ -355,31 +356,25 @@ contains
                    UNITSTR1 = 'm/s'
                    LNSTR1 = 'Wind speed at 10 m'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 9 ) then
-                   AUX1(1:NSEA) = UX0(1:NSEA)
+                   do ISEA=1, NSEA
+                      IX     = MAPSF(ISEA,1)
+                      IY     = MAPSF(ISEA,2)
+                      if ( MAPSTA(IY,IX) .eq. 1 ) then
+                         AUX1(ISEA) = CX0(IX,IY)   
+                      else
+                         AUX1(ISEA) = UNDEF
+                      end if
+                   end do
                    WAUX1 = .true.
-                   FLDSTR1 = 'UST'
-                   UNITSTR1 = 'm/s'   
-                   LNSTR1 = 'Water-side friction velocity'
-!                else if ( IFI .eq. 1 .and. IFJ .eq. 9 ) then
-!                   do ISEA=1, NSEA
-!                      IX     = MAPSF(ISEA,1)
-!                      IY     = MAPSF(ISEA,2)
-!                      if ( MAPSTA(IY,IX) .eq. 1 ) then
-!                         AUX1(ISEA) = UX0(IX,IY)   
-!                      else
-!                         AUX1(ISEA) = UNDEF
-!                      end if
-!                   end do
-!                   WAUX1 = .true.
-!                   FLDSTR1 = 'UX0'
-!                   UNITSTR1 = 'kg*m/s'   
-!                   LNSTR1 = 'Atmospheric momentum (x)'
+                   FLDSTR1 = 'UX0'
+                   UNITSTR1 = 'kg*m/s'   
+                   LNSTR1 = 'Atmospheric momentum (x)'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 10 ) then
                    do ISEA=1, NSEA
                       IX     = MAPSF(ISEA,1)
                       IY     = MAPSF(ISEA,2)
                       if ( MAPSTA(IY,IX) .eq. 1 ) then
-                         AUX1(ISEA) = HML(IX,IY)   
+                         AUX1(ISEA) = CY0(IX,IY)   
                       else
                          AUX1(ISEA) = UNDEF
                       end if
