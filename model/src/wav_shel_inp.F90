@@ -66,7 +66,10 @@ contains
     ! momentum fluxes   : inflags1(5)
 
     inflags1(:)   = .false.
-    inflags1(1:4) = .true.
+! PSH Begin
+!    inflags1(1:4) = .true.
+    inflags1(1:5) = .true.
+! PSH End
     inflags2(:)   = .false.
     if (wav_coupling_to_cice) then
        inflags1(-7) = .true. ! ice thickness
