@@ -133,11 +133,11 @@ contains
     flgr2(:,:)  = .false.   ! coupled fields, w3init w3iog are not ready to deal with these yet
 
     ! 1) Forcing fields
-    flgrd( 1, 1)  = .false. ! Water depth
-    flgrd( 1, 2)  = .false. ! Current vel.
+    flgrd( 1, 1)  = .true. ! Water depth
+    flgrd( 1, 2)  = .true. ! Current vel.
     flgrd( 1, 3)  = .true.  ! Wind speed
-    flgrd( 1, 4)  = .false. ! Air-sea temp. dif.
-    flgrd( 1, 5)  = .false. ! Water level
+    flgrd( 1, 4)  = .true. ! Air-sea temp. dif.
+    flgrd( 1, 5)  = .true. ! Water level
     flgrd( 1, 6)  = .true.  ! Ice concentration
     flgrd( 1, 7)  = .false. ! Iceberg damp coeffic
     flgrd( 1, 8)  = .true.  ! Wind speed at 10 m (U10) ! PSH
