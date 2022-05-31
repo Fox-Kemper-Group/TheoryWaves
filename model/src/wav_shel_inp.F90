@@ -194,7 +194,7 @@ contains
     flgrd( 4,17)  =  .false. ! Number of partitions'
 
     ! 5) Atmosphere-waves layer
-    flgrd( 5, 1)  = .false. ! Friction velocity   '
+    flgrd( 5, 1)  = .true. ! Friction velocity   '
     flgrd( 5, 2)  = .false. ! Charnock parameter  '
     flgrd( 5, 3)  = .false. ! Energy flux         '
     flgrd( 5, 4)  = .false. ! Wind-wave enrgy flux'
