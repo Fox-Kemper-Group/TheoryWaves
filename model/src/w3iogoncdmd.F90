@@ -366,9 +366,9 @@ contains
                       end if
                    end do
                    WAUX1 = .true.
-                   FLDSTR1 = 'UX0'
+                   FLDSTR1 = 'CX0'
                    UNITSTR1 = 'kg*m/s'   
-                   LNSTR1 = 'Atmospheric momentum (x)'
+                   LNSTR1 = 'Current velocity (x)'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 10 ) then
                    do ISEA=1, NSEA
                       IX     = MAPSF(ISEA,1)
@@ -380,9 +380,9 @@ contains
                       end if
                    end do
                    WAUX1 = .true.
-                   FLDSTR1 = 'UY0'
+                   FLDSTR1 = 'CY0'
                    UNITSTR1 = 'kg*m/s'   
-                   LNSTR1 = 'Atmospheric momentum (y)' 
+                   LNSTR1 = 'Current Velocity (y)' 
                else if ( IFI .eq. 1 .and. IFJ .eq. 11 ) then
                    do ISEA=1, NSEA
                       IX     = MAPSF(ISEA,1)
