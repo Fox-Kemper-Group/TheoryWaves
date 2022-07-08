@@ -397,6 +397,34 @@ contains
                    FLDSTR1 = 'HML'
                    UNITSTR1 = 'm'   
                    LNSTR1 = 'Mixed-Layer Depth'
+                else if ( IFI .eq. 1 .and. IFJ .eq. 12 ) then
+                   do ISEA=1, NSEA
+                      IX     = MAPSF(ISEA,1)
+                      IY     = MAPSF(ISEA,2)
+                      if ( MAPSTA(IY,IX) .eq. 1 ) then
+                         AUX1(ISEA) = CX0(IX,IY)
+                      else
+                         AUX1(ISEA) = UNDEF
+                      end if
+                   end do
+                   WAUX1 = .true.
+                   FLDSTR1 = 'CX0'
+                   UNITSTR1 = 'kg*m/s'
+                   LNSTR1 = 'Current velocity (x)'
+                else if ( IFI .eq. 1 .and. IFJ .eq. 13 ) then
+                   do ISEA=1, NSEA
+                      IX     = MAPSF(ISEA,1)
+                      IY     = MAPSF(ISEA,2)
+                      if ( MAPSTA(IY,IX) .eq. 1 ) then
+                         AUX1(ISEA) = CY0(IX,IY)
+                      else
+                         AUX1(ISEA) = UNDEF
+                      end if
+                   end do
+                   WAUX1 = .true.
+                   FLDSTR1 = 'CY0'
+                   UNITSTR1 = 'kg*m/s'
+                   LNSTR1 = 'Current Velocity (y)'
 !PSH TheoryWaves end 
                 !
                 !     Section 2)

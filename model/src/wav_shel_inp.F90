@@ -144,6 +144,8 @@ contains
     flgrd( 1, 9)  = .true.  ! Currents, x-dir (CX0) ! PSH
     flgrd( 1, 10) = .true.  ! Currents, y-dir (CY0) ! PSH
     flgrd( 1, 11) = .true.  ! Boundary layer depth (HML)
+    flgrd( 1, 12) = .true.  ! Atmospheric momentum, x-dir (UX0) ! PSH
+    flgrd( 1, 13) = .true.  ! Atmospheric momentum, y-dir (UY0) ! PSH
 
     ! 2) Standard mean wave parameters
     flgrd( 2, 1)  = .true.  ! Wave height
