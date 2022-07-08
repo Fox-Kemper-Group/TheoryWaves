@@ -408,9 +408,9 @@ contains
                       end if
                    end do
                    WAUX1 = .true.
-                   FLDSTR1 = 'CX0'
+                   FLDSTR1 = 'UX0'
                    UNITSTR1 = 'kg*m/s'
-                   LNSTR1 = 'Current velocity (x)'
+                   LNSTR1 = 'Atm momentum flux (x)'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 13 ) then
                    do ISEA=1, NSEA
                       IX     = MAPSF(ISEA,1)
@@ -422,9 +422,9 @@ contains
                       end if
                    end do
                    WAUX1 = .true.
-                   FLDSTR1 = 'CY0'
+                   FLDSTR1 = 'UY0'
                    UNITSTR1 = 'kg*m/s'
-                   LNSTR1 = 'Current Velocity (y)'
+                   LNSTR1 = 'Atm momentum flux (y)'
 !PSH TheoryWaves end 
                 !
                 !     Section 2)
