@@ -367,7 +367,7 @@ contains
                    end do
                    WAUX1 = .true.
                    FLDSTR1 = 'CX0'
-                   UNITSTR1 = 'kg*m/s'   
+                   UNITSTR1 = 'm/s'   
                    LNSTR1 = 'Current velocity (x)'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 10 ) then
                    do ISEA=1, NSEA
@@ -381,7 +381,7 @@ contains
                    end do
                    WAUX1 = .true.
                    FLDSTR1 = 'CY0'
-                   UNITSTR1 = 'kg*m/s'   
+                   UNITSTR1 = 'm/s'   
                    LNSTR1 = 'Current Velocity (y)' 
                else if ( IFI .eq. 1 .and. IFJ .eq. 11 ) then
                    do ISEA=1, NSEA
