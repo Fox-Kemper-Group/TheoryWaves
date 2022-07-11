@@ -363,7 +363,7 @@ contains
 !                   UNITSTR1 = 'm/s'
 !                   LNSTR1 = 'Wind speed at 10 m'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 8 ) then
-                   AUX1(1:NSEA) = UST(1:NSEA)
+                   AUX1(1:NSEA) = USTTW(1:NSEA)
                    WAUX1 = .true.
                    FLDSTR1 = 'U10'
                    UNITSTR1 = 'm/s'
