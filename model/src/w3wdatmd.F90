@@ -75,6 +75,9 @@
 !      DINIT     Log.  Public   Flag for array initialization.
 !      FL_ALL    Log.  Public   Flag for initializing all arrays,
 !                               otherwise VA is skipped.
+!PSH TheoryWaves begin
+!      USTTW     R.A.  Public   Friction velocity (absolute, ocean-side)
+!PSH TheoryWaves end
 !     ----------------------------------------------------------------
 !
 !  3. Subroutines and functions :
@@ -134,7 +137,10 @@
 #endif
         REAL, POINTER         :: VA(:,:), WLV(:), ICE(:), RHOAIR(:),   &
                                  UST(:), USTDIR(:), ASF(:), FPIS(:),  &
-                                 BERG(:), ICEH(:), ICEF(:), ICEDMAX(:)
+                                 BERG(:), ICEH(:), ICEF(:), ICEDMAX(:),  &
+                                 USTTW(:)
+
+
 #ifdef W3_SETUP
   REAL, POINTER :: ZETA_SETUP(:), FX_zs(:), FY_zs(:)
   REAL, POINTER :: SXX_zs(:), SXY_zs(:), SYY_zs(:)
@@ -168,7 +174,8 @@
 #endif
       REAL, POINTER           :: VA(:,:), WLV(:), ICE(:), RHOAIR(:),  &
                                  UST(:), USTDIR(:), ASF(:), FPIS(:),  &
-                                 BERG(:), ICEH(:), ICEF(:), ICEDMAX(:)
+                                 BERG(:), ICEH(:), ICEF(:), ICEDMAX(:),  &
+                                 USTTW(:)
 #ifdef W3_SETUP
         REAL, POINTER :: ZETA_SETUP(:), FX_zs(:), FY_zs(:)
         REAL, POINTER :: SXX_zs(:), SXY_zs(:), SYY_zs(:)
@@ -635,6 +642,7 @@
                  WDATAS(IMOD)%ICEH(0:NSEA),                           &
                  WDATAS(IMOD)%ICEF(0:NSEA),                           &
                  WDATAS(IMOD)%ICEDMAX(NSEA),                          &
+                 WDATAS(IMOD)%USTTW(0:NSEATM),                        &
                  WDATAS(IMOD)%UST(0:NSEATM),                          &
                  WDATAS(IMOD)%USTDIR(0:NSEATM),                       &
                  WDATAS(IMOD)%ASF(NSEATM),                            &
@@ -655,6 +663,7 @@
       WDATAS(IMOD)%ICEH  (0:NSEA) = GRIDS(IMOD)%IICEHINIT
       WDATAS(IMOD)%ICEF  (0:NSEA) = 1000.
       WDATAS(IMOD)%ICEDMAX(:) = 1000.
+      WDATAS(IMOD)%USTTW (0:NSEATM) = 1.E-5
       WDATAS(IMOD)%UST   (0:NSEATM) = 1.E-5
       WDATAS(IMOD)%USTDIR(0:NSEATM) = 0.
       WDATAS(IMOD)%ASF   (:) = 0.
@@ -871,6 +880,7 @@
           ICEH   => WDATAS(IMOD)%ICEH
           ICEF   => WDATAS(IMOD)%ICEF
           ICEDMAX=> WDATAS(IMOD)%ICEDMAX
+          USTTW  => WDATAS(IMOD)%USTTW
           UST    => WDATAS(IMOD)%UST
           USTDIR => WDATAS(IMOD)%USTDIR
           ASF    => WDATAS(IMOD)%ASF
