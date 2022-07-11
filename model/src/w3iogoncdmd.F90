@@ -34,6 +34,7 @@ contains
     USE W3IDATMD, ONLY: CX0, CY0, CXN, CYN
     USE W3IDATMD, ONLY: TU0, UX0, UY0, TUN, UXN, UYN
     USE W3ADATMD, ONLY: U10, U10D, WBT
+    USE W3WDATMD, ONLY: USTTW
 !PSH TheoryWaves end
     USE NETCDF
 
@@ -123,9 +124,15 @@ contains
           IF ( FLOGRD( 2, 6) ) FP0   (ISEA) = UNDEF
           IF ( FLOGRD( 2, 7) ) THM   (ISEA) = UNDEF
           IF ( FLOGRD( 2, 8) ) THS   (ISEA) = UNDEF
+!PSH TheoryWaves begin
+!          IF ( FLOGRD( 2, 9) ) THP0  (ISEA) = UNDEF
+!                               UST   (ISEA) = UNDEF
+!                               USTDIR(ISEA) = UNDEF
           IF ( FLOGRD( 2, 9) ) THP0  (ISEA) = UNDEF
                                UST   (ISEA) = UNDEF
                                USTDIR(ISEA) = UNDEF
+                               USTTW (ISEA) = UNDEF
+!PSH TheoryWaves end
           IF ( FLOGRD( 2,10) ) HSIG  (ISEA) = UNDEF
           IF ( FLOGRD( 2,11) ) STMAXE(ISEA) = UNDEF
           IF ( FLOGRD( 2,12) ) STMAXD(ISEA) = UNDEF
