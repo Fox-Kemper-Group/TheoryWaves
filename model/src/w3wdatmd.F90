@@ -670,8 +670,8 @@
       WDATAS(IMOD)%FPIS  (:) = 0.
       WDATAS(IMOD)%DINIT     = .TRUE.
 !PSH TheoryWaves begin
-      WDATAS(IMOD)%RHOWTW(0:NSEATM) = DWAT
-      WDATAS(IMOD)%USTTW (0:NSEATM) = 1.E-5
+      WDATAS(IMOD)%RHOWTW(0:NSEA) = 1000.
+      WDATAS(IMOD)%USTTW (0:NSEA) = 1.E-5
 !PSH TheoryWaves end
 #ifdef W3_DEBUGINIT
     WRITE(740+IAPROC,*) 'W3DIMW, step 11'
