@@ -34,7 +34,7 @@ contains
     USE W3IDATMD, ONLY: CX0, CY0, CXN, CYN
     USE W3IDATMD, ONLY: TU0, UX0, UY0, TUN, UXN, UYN
     USE W3ADATMD, ONLY: U10, U10D, WBT
-    USE W3WDATMD, ONLY: USTTW
+    USE W3WDATMD, ONLY: USTTW, RHOWTW, RHOAIR
 !PSH TheoryWaves end
     USE NETCDF
 
@@ -363,7 +363,7 @@ contains
 !                   UNITSTR1 = 'm/s'
 !                   LNSTR1 = 'Wind speed at 10 m'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 8 ) then
-                   AUX1(1:NSEA) = USTTW(1:NSEA)
+                   AUX1(1:NSEA) = RHOWTW(1:NSEA)
                    WAUX1 = .true.
                    FLDSTR1 = 'U10'
                    UNITSTR1 = 'm/s'
