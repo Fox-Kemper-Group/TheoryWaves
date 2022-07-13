@@ -656,7 +656,8 @@
 
       WDATAS(IMOD)%WLV   (:) = 0.
       WDATAS(IMOD)%ICE   (0:NSEA) = 0.
-      WDATAS(IMOD)%RHOAIR(:) = DAIR
+!PSH TheoryWaves
+      WDATAS(IMOD)%RHOAIR(:) = DWAT
 #ifdef W3_SETUP
      WDATAS(IMOD)%ZETA_SETUP(:) = 0.
 #endif
@@ -670,7 +671,7 @@
       WDATAS(IMOD)%FPIS  (:) = 0.
       WDATAS(IMOD)%DINIT     = .TRUE.
 !PSH TheoryWaves begin
-      WDATAS(IMOD)%RHOWTW(0:NSEA) = DWAT
+      WDATAS(IMOD)%RHOWTW(0:NSEA) = 1000.
       WDATAS(IMOD)%USTTW (0:NSEA) = 1.E-5
 !PSH TheoryWaves end
 #ifdef W3_DEBUGINIT
