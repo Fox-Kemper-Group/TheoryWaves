@@ -133,19 +133,28 @@ contains
     flgr2(:,:)  = .false.   ! coupled fields, w3init w3iog are not ready to deal with these yet
 
     ! 1) Forcing fields
+!PSH Theory Waves begin
+!    flgrd( 1, 1)  = .false. ! Water depth
+!    flgrd( 1, 2)  = .true.  ! Current vel.
+!    flgrd( 1, 3)  = .true.  ! Wind speed
+!    flgrd( 1, 4)  = .false. ! Air-sea temp. dif.
+!    flgrd( 1, 5)  = .false. ! Water level
+!    flgrd( 1, 6)  = .false. ! Ice concentration
+!    flgrd( 1, 7)  = .false. ! Iceberg damp coeffic
     flgrd( 1, 1)  = .false. ! Water depth
-    flgrd( 1, 2)  = .true. ! Current vel.
+    flgrd( 1, 2)  = .true.  ! Current vel.
     flgrd( 1, 3)  = .true.  ! Wind speed
-    flgrd( 1, 4)  = .false. ! Air-sea temp. dif.
-    flgrd( 1, 5)  = .false. ! Water level
-    flgrd( 1, 6)  = .false.  ! Ice concentration
+    flgrd( 1, 4)  = .true. ! Air density
+    flgrd( 1, 5)  = .true. ! Water density
+    flgrd( 1, 6)  = .false. ! Ice concentration
     flgrd( 1, 7)  = .false. ! Iceberg damp coeffic
-    flgrd( 1, 8)  = .true.  ! Wind speed at 10 m (U10) ! PSH
-    flgrd( 1, 9)  = .true.  ! Currents, x-dir (CX0) ! PSH
-    flgrd( 1, 10) = .true.  ! Currents, y-dir (CY0) ! PSH
+    flgrd( 1, 8)  = .true.  ! Wind speed at 10 m (U10) !PSH
+    flgrd( 1, 9)  = .true.  ! Currents, x-dir (CX0) !PSH
+    flgrd( 1, 10) = .true.  ! Currents, y-dir (CY0) !PSH
     flgrd( 1, 11) = .true.  ! Boundary layer depth (HML)
-    flgrd( 1, 12) = .true.  ! Atmospheric momentum, x-dir (UX0) ! PSH
-    flgrd( 1, 13) = .true.  ! Atmospheric momentum, y-dir (UY0) ! PSH
+    flgrd( 1, 12) = .true.  ! Atmospheric momentum, x-dir (UX0) !PSH
+    flgrd( 1, 13) = .true.  ! Atmospheric momentum, y-dir (UY0) !PSH
+!PSH Theory Waves end
 
     ! 2) Standard mean wave parameters
     flgrd( 2, 1)  = .true.  ! Wave height

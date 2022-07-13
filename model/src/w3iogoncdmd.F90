@@ -331,18 +331,33 @@ contains
                    UNITSTR2 = 'm/s'
                    LNSTR1 = 'Mean wind, x-component'
                    LNSTR2 = 'Mean wind, y-component'
+!PSH TheoryWaves begin
+!                else if ( IFI .eq. 1 .and. IFJ .eq. 4 ) then
+!                   AUX1(1:NSEA) = AS(1:NSEA)
+!                   WAUX1 = .true.
+!                   FLDSTR1 = 'AS'
+!                   UNITSTR1 = 'deg C'
+!                   LNSTR1 = 'Air-sea temperature difference'
+!                else if ( IFI .eq. 1 .and. IFJ .eq. 5 ) then
+!                   AUX1(1:NSEA) = WLV(1:NSEA)
+!                   WAUX1 = .true.
+!                   FLDSTR1 = 'WLV'
+!                   UNITSTR1 = 'm'
+!                   LNSTR1 = 'Water levels'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 4 ) then
-                   AUX1(1:NSEA) = AS(1:NSEA)
+                   AUX1(1:NSEA) = RHOAIR(1:NSEA)
                    WAUX1 = .true.
-                   FLDSTR1 = 'AS'
-                   UNITSTR1 = 'deg C'
-                   LNSTR1 = 'Air-sea temperature difference'
+                   FLDSTR1 = 'RHOAIR'
+                   UNITSTR1 = 'kg/m3'
+                   LNSTR1 = 'Air density'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 5 ) then
-                   AUX1(1:NSEA) = WLV(1:NSEA)
+                   AUX1(1:NSEA) = RHOWTW(1:NSEA)
                    WAUX1 = .true.
-                   FLDSTR1 = 'WLV'
-                   UNITSTR1 = 'm'
-                   LNSTR1 = 'Water levels'
+                   FLDSTR1 = 'RHOWTW'
+                   UNITSTR1 = 'kg/m3'
+                   LNSTR1 = 'Water density'
+!PSH TheoryWaves end
+
                 else if ( IFI .eq. 1 .and. IFJ .eq. 6 ) then
                    AUX1(1:NSEA) = ICE(1:NSEA)
                    WAUX1 = .true.
