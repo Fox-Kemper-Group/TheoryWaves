@@ -628,6 +628,15 @@ contains
                    FLDSTR1 = 'LANGMT'
                    UNITSTR1 = ''
                    LNSTR1 = 'Turbulent Langmuir number (La_t)'
+! PSH TheoryWaves begin
+                else if ( IFI .eq. 6 .and. IFJ .eq. 15 ) then
+                   AUX1(1:NSEA) = USTTW(1:NSEA)
+                   WAUX1 = .true.
+                   FLDSTR1 = 'USTTW'
+                   UNITSTR1 = 'm/s'
+                   LNSTR1 = 'Water-side friction velocity'
+! PSH TheoryWaves end
+
                 !
                 !     Section 7)
                 !
