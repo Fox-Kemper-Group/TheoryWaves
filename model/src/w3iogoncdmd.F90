@@ -34,7 +34,7 @@ contains
     USE W3IDATMD, ONLY: CX0, CY0, CXN, CYN
     USE W3IDATMD, ONLY: TU0, UX0, UY0, TUN, UXN, UYN
     USE W3ADATMD, ONLY: U10, U10D, WBT
-    USE W3WDATMD, ONLY: USTTW, RHOWTW, RHOAIR
+    USE W3WDATMD, ONLY: USTTW, RHOWTW, EFTW, RHOAIR
 !PSH TheoryWaves end
     USE NETCDF
 
@@ -132,6 +132,7 @@ contains
                                UST   (ISEA) = UNDEF
                                USTDIR(ISEA) = UNDEF
                                USTTW (ISEA) = UNDEF
+                               EFTW  (ISEA) = UNDEF
 !PSH TheoryWaves end
           IF ( FLOGRD( 2,10) ) HSIG  (ISEA) = UNDEF
           IF ( FLOGRD( 2,11) ) STMAXE(ISEA) = UNDEF
@@ -635,6 +636,13 @@ contains
                    FLDSTR1 = 'USTTW'
                    UNITSTR1 = 'm/s'
                    LNSTR1 = 'Water-side friction velocity'
+                else if ( IFI .eq. 6 .and. IFJ .eq. 16 ) then
+                   AUX1(1:NSEA) = EFTW(1:NSEA)
+                   WAUX1 = .true.
+                   FLDSTR1 = 'EFTW'
+                   UNITSTR1 = ''
+                   LNSTR1 = 'Enhancement factor'
+
 ! PSH TheoryWaves end
 
                 !

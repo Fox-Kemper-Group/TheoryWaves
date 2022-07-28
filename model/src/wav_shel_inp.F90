@@ -227,6 +227,7 @@ contains
 !PSH TheoryWaves begin (note: changed 13 to 14 for La_t)
     flgrd( 6,14)  = .true.  ! 'Turbulent Langmuir number (La_t)'
     flgrd( 6,15)  = .true.  ! 'Friction velocity (ocean)'
+    flgrd( 6,16)  = .true.  ! 'Enhancement factor'
 !PSH TheoryWaves end
 
     ! 7) Wave-bottom layer
