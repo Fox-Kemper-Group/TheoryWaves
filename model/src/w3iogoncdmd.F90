@@ -635,7 +635,7 @@ contains
                    WAUX1 = .true.
                    FLDSTR1 = 'USTTW'
                    UNITSTR1 = 'm/s'
-                   LNSTR1 = 'Water-side friction velocity'
+                   LNSTR1 = 'Skin friction velocity, water side'
                 else if ( IFI .eq. 6 .and. IFJ .eq. 16 ) then
                    AUX1(1:NSEA) = EFTW(1:NSEA)
                    WAUX1 = .true.
