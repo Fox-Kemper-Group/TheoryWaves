@@ -2823,8 +2823,7 @@
 
 !PSH TheoryWave begin
        DO ISEA = 1, NSEA
-!         USTTW(ISEA) = ISEA * 2.
-         USTTW(ISEA) = SQRT(TAUA(ISEA) / RHOWTW(ISEA))
+         USTTW(ISEA) = MAX(1E-4, SQRT(TAUA(ISEA) / RHOWTW(ISEA)))
          EFTW(ISEA) = TAUA(ISEA)
        END DO
 

@@ -642,7 +642,12 @@ contains
                    FLDSTR1 = 'EFTW'
                    UNITSTR1 = ''
                    LNSTR1 = 'Enhancement factor'
-
+                else if ( IFI .eq. 6 .and. IFJ .eq. 17 ) then
+                   AUX1(1:NSEA) = UST(1:NSEA)
+                   WAUX1 = .true.
+                   FLDSTR1 = 'UST'
+                   UNITSTR1 = 'm/s'
+                   LNSTR1 = 'Skin friction velocity, air side'
 ! PSH TheoryWaves end
 
                 !
