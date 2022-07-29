@@ -2822,12 +2822,10 @@
   380     CONTINUE
 
 !PSH TheoryWave begin
-!       DO ISEA=1, NSEA
-!         HS(ISEA) = 3.15894
-!       END DO
        DO ISEA = 1, NSEA
+!         USTTW(ISEA) = ISEA * 2.
+         USTTW(ISEA) = TAUA(ISEA)
          EFTW(ISEA) = ISEA * 1.
-         USTTW(ISEA) = ISEA * 2.
        END DO
 
 !PSH TheoryWave end
