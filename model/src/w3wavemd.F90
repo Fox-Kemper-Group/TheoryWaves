@@ -2824,8 +2824,8 @@
 !PSH TheoryWave begin
        DO ISEA = 1, NSEA
 !         USTTW(ISEA) = ISEA * 2.
-         USTTW(ISEA) = TAUA(ISEA)
-         EFTW(ISEA) = ISEA * 1.
+         USTTW(ISEA) = TAUA(ISEA) / RHOWTW(ISEA)
+         EFTW(ISEA) = TAUA(ISEA)
        END DO
 
 !PSH TheoryWave end
