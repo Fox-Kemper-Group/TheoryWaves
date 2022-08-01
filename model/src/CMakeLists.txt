@@ -128,7 +128,8 @@ set(SRCFILES constants.F90
              wav_import_export.F90
              wav_kind_mod.F90
              wav_shel_inp.F90
-             wav_shr_mod.F90)
+             wav_shr_mod.F90
+             theorywaves.F90)
 
 foreach(FILE ${SRCFILES})
   if(EXISTS "${CASEROOT}/SourceMods/src.ww3/${FILE}")
