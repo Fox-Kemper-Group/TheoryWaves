@@ -452,6 +452,9 @@
       USE WAV_SHR_MOD , only : RSTWR, HISTWR
       USE W3IOGONCDMD , ONLY : W3IOGONCD
 #endif
+!PSH TheoryWaves begin
+    USE WMTHEORYWAVES
+!PSH TheoryWaves end
 !
       IMPLICIT NONE
 !
