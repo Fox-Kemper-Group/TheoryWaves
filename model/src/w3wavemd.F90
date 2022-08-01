@@ -453,7 +453,7 @@
       USE W3IOGONCDMD , ONLY : W3IOGONCD
 #endif
 !PSH TheoryWaves begin
-    USE WMTHEORYWAVES
+    USE THEORYWAVES
 !PSH TheoryWaves end
 !
       IMPLICIT NONE
