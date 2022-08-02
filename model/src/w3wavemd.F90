@@ -2827,7 +2827,7 @@
 !PSH TheoryWave begin
        DO ISEA = 1, NSEA
          USTTW(ISEA) = MAX(1E-4, SQRT(TAUA(ISEA) / RHOWTW(ISEA)))
-         EFTW(ISEA) = TAUA(ISEA)
+         EFTW(ISEA) = EFactor_model(U10(ISEA), UST(ISEA), HML(ISEA))
        END DO
 
 !PSH TheoryWave end
