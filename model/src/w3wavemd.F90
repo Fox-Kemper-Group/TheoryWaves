@@ -2830,9 +2830,9 @@
          IY     = MAPSF(ISEA,2)
          USTTW(ISEA) = MAX(1E-4, SQRT(TAUA(ISEA) / RHOWTW(ISEA)))
          if ( MAPSTA(IY,IX) .eq. 1 ) then
-           EFTW(ISEA) = EFactor_model(U10(ISEA), UST(ISEA), HML(IX,IY))
+           EFTW(ISEA) = EFactor_model(U10(ISEA), USTTW(ISEA), HML(IX,IY))
          else
-           EFTW(ISEA) = EFactor_model(U10(ISEA), UST(ISEA), 0.)
+           EFTW(ISEA) = EFactor_model(U10(ISEA), USTTW(ISEA), 0.)
          end if
        END DO
 
