@@ -148,6 +148,7 @@ contains
     flgrd( 1, 12) = .true.  ! Atmospheric momentum, x-dir (UX0) !PSH
     flgrd( 1, 13) = .true.  ! Atmospheric momentum, y-dir (UY0) !PSH
     flgrd( 1, 14) = .true.  ! Atmospheric momentum, magnitude (TAUA) !PSH
+    flgrd( 1, 15) = .true.  ! Atmospheric momentum, direction (TAUADIR) !PSH
 !PSH Theory Waves end
 
     ! 2) Standard mean wave parameters
