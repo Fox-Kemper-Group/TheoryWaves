@@ -676,7 +676,7 @@
       WDATAS(IMOD)%FPIS  (:) = 0.
       WDATAS(IMOD)%DINIT     = .TRUE.
 !PSH TheoryWaves begin
-      WDATAS(IMOD)%RHOWTW(0:NSEA) = DWAT
+      WDATAS(IMOD)%RHOWTW(0:NSEA) = 1025.
       WDATAS(IMOD)%USTTW (0:NSEA) = 1.E-5
       WDATAS(IMOD)%EFTW  (0:NSEA) = 1.
 !PSH TheoryWaves end
