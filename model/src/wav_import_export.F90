@@ -86,6 +86,10 @@ contains
        call fldlist_add(fldsToWav_num, fldsToWav, 'Sa_u'       )
        call fldlist_add(fldsToWav_num, fldsToWav, 'Sa_v'       )
        call fldlist_add(fldsToWav_num, fldsToWav, 'So_bldepth' )
+!PSH begin
+       call fldlist_add(fldsToWav_num, fldsToWav, 'Faxa_taux' )
+       call fldlist_add(fldsToWav_num, fldsToWav, 'Faxa_tauy' )
+!PSH end
     else
        call fldlist_add(fldsToWav_num, fldsToWav, 'Sa_u10m'    )
        call fldlist_add(fldsToWav_num, fldsToWav, 'Sa_v10m'    )
