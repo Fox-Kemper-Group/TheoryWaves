@@ -67,8 +67,8 @@ contains
 
     inflags1(:)   = .false.
 ! PSH Begin
-    inflags1(1:4) = .true.
-!    inflags1(1:5) = .true.
+!    inflags1(1:4) = .true.
+    inflags1(1:5) = .true.
 ! PSH End
     inflags2(:)   = .false.
     if (wav_coupling_to_cice) then
