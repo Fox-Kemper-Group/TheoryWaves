@@ -500,9 +500,6 @@ contains
 !       end do
 !    end if
 !PSH end
-    if (INFLAGS1(5)) then 
-       TU0  = time0       ! times for atm momentum fields.
-       TUN  = timen
 
        UX0(:,:) = def_value   ! atm u momentum
        UXN(:,:) = def_value
