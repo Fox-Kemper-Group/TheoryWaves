@@ -467,7 +467,8 @@ contains
     ! ---------------
     ! wind stress - always assume that this is being imported for CESM
     ! ---------------
-    call SetGlobalInput(importState, 'Faox_taux', vm, data_global, rc)
+!    call SetGlobalInput(importState, 'Faox_taux', vm, data_global, rc)
+    call SetGlobalInput(importState, 'So_bldepth', vm, data_global, rc)
     if (ChkErr(rc,__LINE__,u_FILE_u)) return
     n = 0
     do iy = 1,NY 
@@ -477,7 +478,8 @@ contains
        end do
     end do
 
-    call SetGlobalInput(importState, 'Faox_tauy', vm, data_global, rc)
+!    call SetGlobalInput(importState, 'Faox_tauy', vm, data_global, rc)
+    call SetGlobalInput(importState, 'So_bldepth', vm, data_global, rc)
     if (ChkErr(rc,__LINE__,u_FILE_u)) return
     n = 0
     do iy = 1,NY
