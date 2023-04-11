@@ -467,31 +467,31 @@ contains
 !    ! ---------------
 !    ! wind stress - always assume that this is being imported for CESM
 !    ! ---------------
-!    TWTX0(:,:) = def_value
-!    if (state_fldchk(importState, 'So_u')) then
-!        call SetGlobalInput(importState, 'So_u', vm, data_global, rc)
-!        if (ChkErr(rc,__LINE__,u_FILE_u)) return
-!        n = 0
-!        do iy = 1,NY 
-!           do ix = 1,NX 
-!              n = n + 1
-!              TWTX0(ix,iy) = data_global(n) ! wind stress (x-dir)
-!           end do
-!        end do
-!    endif
-!
-!    TWTY0(:,:) = def_value
-!    if (state_fldchk(importState, 'So_v')) then
-!        call SetGlobalInput(importState, 'So_v', vm, data_global, rc)
-!        if (ChkErr(rc,__LINE__,u_FILE_u)) return
-!        n = 0
-!        do iy = 1,NY
-!           do ix = 1,NX
-!              n = n + 1
-!              TWTY0(ix,iy) = data_global(n) ! wind stress (y-dir)
-!           end do
-!        end do
-!    endif
+    TWTX0(:,:) = def_value
+    if (state_fldchk(importState, 'So_u')) then
+        call SetGlobalInput(importState, 'So_u', vm, data_global, rc)
+        if (ChkErr(rc,__LINE__,u_FILE_u)) return
+        n = 0
+        do iy = 1,NY 
+           do ix = 1,NX 
+              n = n + 1
+              TWTX0(ix,iy) = data_global(n) ! wind stress (x-dir)
+           end do
+        end do
+    endif
+
+    TWTY0(:,:) = def_value
+    if (state_fldchk(importState, 'So_v')) then
+        call SetGlobalInput(importState, 'So_v', vm, data_global, rc)
+        if (ChkErr(rc,__LINE__,u_FILE_u)) return
+        n = 0
+        do iy = 1,NY
+           do ix = 1,NX
+              n = n + 1
+              TWTY0(ix,iy) = data_global(n) ! wind stress (y-dir)
+           end do
+        end do
+    endif
 !PSH TheoryWaves end
 #endif
     ! ---------------
@@ -504,7 +504,7 @@ contains
        UX0(:,:) = def_value   ! atm u momentum
        UXN(:,:) = def_value
 !PSH begin
-       TWTX0(:,:) = def_value
+!       TWTX0(:,:) = def_value
 !PSH end
        if (state_fldchk(importState, 'Faxa_taux')) then
           call SetGlobalInput(importState, 'Faxa_taux', vm, data_global, rc)
@@ -516,7 +516,7 @@ contains
                 UX0(ix,iy) = data_global(n)
                 UXN(ix,iy) = data_global(n)
 !PSH begin
-                TWTX0(ix,iy) = data_global(n) ! wind stress (x-dir)
+!                TWTX0(ix,iy) = data_global(n) ! wind stress (x-dir)
 !PSH end
              end do
           end do
@@ -525,7 +525,7 @@ contains
        UY0(:,:) = def_value   ! atm v momentum
        UYN(:,:) = def_value
 !PSH begin
-       TWTY0(:,:) = def_value
+!       TWTY0(:,:) = def_value
 !PSH end
        if (state_fldchk(importState, 'Faxa_tauy')) then
           if (ChkErr(rc,__LINE__,u_FILE_u)) return
@@ -539,7 +539,7 @@ contains
              UY0(ix,iy)  = data_global(n)
              UYN(ix,iy)  = data_global(n)
 !PSH begin
-             TWTY0(ix,iy) = data_global(n) ! wind stress (y-dir)
+!             TWTY0(ix,iy) = data_global(n) ! wind stress (y-dir)
 !PSH end
           end do
        end do
