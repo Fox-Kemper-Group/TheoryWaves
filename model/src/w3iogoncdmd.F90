@@ -31,6 +31,7 @@ contains
     USE W3ADATMD, ONLY: STMAXE, STMAXD, HMAXE, HCMAXE, HMAXD, HCMAXD, USSP
 !PSH TheoryWaves begin
     USE W3IDATMD, ONLY: HML
+    USE W3IDATMD, ONLY: TWTX0, TWTY0
     USE W3IDATMD, ONLY: CX0, CY0, CXN, CYN
     USE W3IDATMD, ONLY: TU0, UX0, UY0, TUN, UXN, UYN
     USE W3ADATMD, ONLY: U10, U10D, WBT
@@ -427,32 +428,37 @@ contains
                       IX     = MAPSF(ISEA,1)
                       IY     = MAPSF(ISEA,2)
                       if ( MAPSTA(IY,IX) .eq. 1 ) then
-!PSH begin
 !                         AUX1(ISEA) = UX0(IX,IY)
-                         AUX1(ISEA) = UY0(IX,IY)
-!PSH end
+                         AUX1(ISEA) = TWTX0(IX,IY)
                       else
                          AUX1(ISEA) = UNDEF
                       end if
                    end do
                    WAUX1 = .true.
-                   FLDSTR1 = 'UX0'
-                   UNITSTR1 = 'kg*m/s'
-                   LNSTR1 = 'Atm momentum flux (x)'
+!                   FLDSTR1 = 'UX0'
+                   FLDSTR1 = 'TWTX0'
+!                   UNITSTR1 = 'kg*m/s'
+                   UNITSTR1 = 'N/m^2'
+!                   LNSTR1 = 'Atm momentum flux (x)'
+                   LNSTR1 = 'Wind stress (x)'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 13 ) then
                    do ISEA=1, NSEA
                       IX     = MAPSF(ISEA,1)
                       IY     = MAPSF(ISEA,2)
                       if ( MAPSTA(IY,IX) .eq. 1 ) then
-                         AUX1(ISEA) = UY0(IX,IY)
+!                         AUX1(ISEA) = UY0(IX,IY)
+                         AUX1(ISEA) = TWTY0(IX,IY)
                       else
                          AUX1(ISEA) = UNDEF
                       end if
                    end do
                    WAUX1 = .true.
-                   FLDSTR1 = 'UY0'
-                   UNITSTR1 = 'kg*m/s'
-                   LNSTR1 = 'Atm momentum flux (y)'
+!                   FLDSTR1 = 'UY0'
+!                   UNITSTR1 = 'kg*m/s'
+!                   LNSTR1 = 'Atm momentum flux (y)'
+                   FLDSTR1 = 'TWTY0'
+                   UNITSTR1 = 'N/m^2'
+                   LNSTR1 = 'Wind stress (y)'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 14 ) then
                    AUX1(1:NSEA) = TAUA(1:NSEA)
                    WAUX1 = .true.

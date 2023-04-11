@@ -83,6 +83,10 @@
 !      FLICE     Log.  Public   Flag for ice input.
 #ifdef CESMCOUPLED
 !      HML       R.A.  Public   Mixed layer depth
+!PSH TheoryWaves begin
+!      TWTX0     R.A.  Public   Wind stress, X-component (from coupler)
+!      TWTY0     R.A.  Public   Wind stress, Y-component (from coupler)
+!PSH TheoryWaves end
 #endif
 !      FLTAUA    Log.  Public   Flag for atmospheric momentum input
 !      FLRHOA    Log.  Public   Flag for air density input
@@ -176,6 +180,9 @@
                                  ICEP3(:,:), ICEP4(:,:), ICEP5(:,:)
 #ifdef CESMCOUPLED
         REAL, POINTER         :: HML(:,:)
+!PSH TheoryWaves Begin
+        REAL, POINTER         :: TWTX0(:,:), TWTY0(:,:)
+!PSH TheoryWaves End
 #endif
 #ifdef W3_TIDE
  REAL, POINTER         ::  CXTIDE(:,:,:,:), CYTIDE(:,:,:,:),    &
@@ -232,6 +239,9 @@
 #endif
 #ifdef CESMCOUPLED
       REAL   , POINTER        :: HML(:,:)
+!PSH TheoryWaves Begin
+      REAL   , POINTER        :: TWTX0(:,:), TWTY0(:,:)
+!PSH TheoryWaves End
 #endif
 !/
       CONTAINS
@@ -687,6 +697,11 @@
 #ifdef CESMCOUPLED
         ALLOCATE ( INPUTS(IMOD)%HML(NX,NY), STAT=ISTAT )
         CHECK_ALLOC_STATUS ( ISTAT )
+!PSH TheoryWaves begin
+        ALLOCATE ( INPUTS(IMOD)%TWTX0(NX,NY),              &    
+                   INPUTS(IMOD)%TWTY0(NX,NY), STAT=ISTAT )
+        CHECK_ALLOC_STATUS ( ISTAT )
+!PSH TheoryWaves end
 #endif
 !
       INPUTS(IMOD)%IINIT  = .TRUE.
@@ -995,6 +1010,10 @@
             END IF
 #ifdef CESMCOUPLED
           HML    => INPUTS(IMOD)%HML
+!PSH TheoryWaves begin
+          TWTX0  => INPUTS(IMOD)%TWTX0
+          TWTY0  => INPUTS(IMOD)%TWTY0
+!PSH TheoryWaves end
 #endif
 !
           IF ( FLTAUA  ) THEN

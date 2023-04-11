@@ -222,6 +222,9 @@ contains
     use w3wdatmd    , only: time
 #ifdef CESMCOUPLED
     use w3idatmd    , only: HML
+!PSH TheoryWaves begin
+    use w3idatmd    , only: TWTX0, TWTY0
+!PSH TheoryWaves end
 #endif
 
     ! input/output variables
@@ -460,6 +463,30 @@ contains
           HML(ix,iy) = max(data_global(n), 5.) ! ocn mixing layer depth
        end do
     end do
+!PSH TheoryWaves begin
+    ! ---------------
+    ! wind stress - always assume that this is being imported for CESM
+    ! ---------------
+    call SetGlobalInput(importState, 'Faox_taux', vm, data_global, rc)
+    if (ChkErr(rc,__LINE__,u_FILE_u)) return
+    n = 0
+    do iy = 1,NY 
+       do ix = 1,NX 
+          n = n + 1
+          TWTX0(ix,iy) = data_global(n) ! wind stress (x-dir)
+       end do
+    end do
+
+    call SetGlobalInput(importState, 'Faox_tauy', vm, data_global, rc)
+    if (ChkErr(rc,__LINE__,u_FILE_u)) return
+    n = 0
+    do iy = 1,NY
+       do ix = 1,NX
+          n = n + 1
+          TWTY0(ix,iy) = data_global(n) ! wind stress (y-dir)
+       end do
+    end do
+!PSH TheoryWaves end
 #endif
     ! ---------------
     ! INFLAGS1(5) - atm momentum fields
