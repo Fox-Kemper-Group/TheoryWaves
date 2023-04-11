@@ -460,17 +460,45 @@ contains
                    UNITSTR1 = 'N/m^2'
                    LNSTR1 = 'Wind stress (y)'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 14 ) then
-                   AUX1(1:NSEA) = TAUA(1:NSEA)
+                   do ISEA=1, NSEA
+                      IX     = MAPSF(ISEA,1)
+                      IY     = MAPSF(ISEA,2)
+                      if ( MAPSTA(IY,IX) .eq. 1 ) then
+                         AUX1(ISEA) = UX0(IX,IY)
+                      else
+                         AUX1(ISEA) = UNDEF
+                      end if
+                   end do
                    WAUX1 = .true.
-                   FLDSTR1 = 'TAUA'
+                   FLDSTR1 = 'UX0'
                    UNITSTR1 = 'kg*m/s'
-                   LNSTR1 = 'Atm momentum flux (magnitude)'
+                   LNSTR1 = 'Atm momentum flux (x)'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 15 ) then
-                   AUX1(1:NSEA) = TAUADIR(1:NSEA)
+                   do ISEA=1, NSEA
+                      IX     = MAPSF(ISEA,1)
+                      IY     = MAPSF(ISEA,2)
+                      if ( MAPSTA(IY,IX) .eq. 1 ) then
+                         AUX1(ISEA) = UY0(IX,IY)
+                      else
+                         AUX1(ISEA) = UNDEF
+                      end if
+                   end do
                    WAUX1 = .true.
-                   FLDSTR1 = 'TAUADIR'
-                   UNITSTR1 = ''
-                   LNSTR1 = 'Atm momentum flux (direction)'
+                   FLDSTR1 = 'UY0'
+                   UNITSTR1 = 'kg*m/s'
+                   LNSTR1 = 'Atm momentum flux (y)'
+!                else if ( IFI .eq. 1 .and. IFJ .eq. 14 ) then
+!                   AUX1(1:NSEA) = TAUA(1:NSEA)
+!                   WAUX1 = .true.
+!                   FLDSTR1 = 'TAUA'
+!                   UNITSTR1 = 'kg*m/s'
+!                   LNSTR1 = 'Atm momentum flux (magnitude)'
+!                else if ( IFI .eq. 1 .and. IFJ .eq. 15 ) then
+!                   AUX1(1:NSEA) = TAUADIR(1:NSEA)
+!                   WAUX1 = .true.
+!                   FLDSTR1 = 'TAUADIR'
+!                   UNITSTR1 = ''
+!                   LNSTR1 = 'Atm momentum flux (direction)'
 !PSH TheoryWaves end 
                 !
                 !     Section 2)
