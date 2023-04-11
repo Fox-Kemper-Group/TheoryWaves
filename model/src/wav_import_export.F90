@@ -468,6 +468,7 @@ contains
     ! wind stress - always assume that this is being imported for CESM
     ! ---------------
     TWTX0(:,:) = def_value
+    if (state_fldchk(importState, 'Faxa_taux')) then
         call SetGlobalInput(importState, 'Faxa_taux', vm, data_global, rc)
         if (ChkErr(rc,__LINE__,u_FILE_u)) return
         n = 0
