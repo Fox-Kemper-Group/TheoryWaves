@@ -87,8 +87,8 @@ contains
        call fldlist_add(fldsToWav_num, fldsToWav, 'Sa_v'       )
        call fldlist_add(fldsToWav_num, fldsToWav, 'So_bldepth' )
 !PSH begin
-!       call fldlist_add(fldsToWav_num, fldsToWav, 'Faxa_taux' )
-!       call fldlist_add(fldsToWav_num, fldsToWav, 'Faxa_tauy' )
+       call fldlist_add(fldsToWav_num, fldsToWav, 'Faox_taux' )
+       call fldlist_add(fldsToWav_num, fldsToWav, 'Faox_tauy' )
 !PSH end
     else
        call fldlist_add(fldsToWav_num, fldsToWav, 'Sa_u10m'    )
@@ -467,48 +467,15 @@ contains
     if (INFLAGS1(5)) then
        TU0  = time0       ! times for atm momentum fields.
        TUN  = timen
-!PSH begin
-!       UX0(:,:) = def_value   ! atm u momentum
-!       UXN(:,:) = def_value
-!       if (state_fldchk(importState, 'Faxa_taux')) then
-!          call SetGlobalInput(importState, 'Faxa_taux', vm, data_global, rc)
-!          if (ChkErr(rc,__LINE__,u_FILE_u)) return
-!          n = 0
-!          do iy = 1,NY
-!             do ix = 1,NX
-!                n = n + 1
-!                UX0(ix,iy) = data_global(n)
-!                UXN(ix,iy) = data_global(n)
-!             end do
-!          end do
-!       end if
-!
-!       UY0(:,:) = def_value   ! atm v momentum
-!       UYN(:,:) = def_value
-!       if (state_fldchk(importState, 'Faxa_tauy')) then
-!          if (ChkErr(rc,__LINE__,u_FILE_u)) return
-!          call SetGlobalInput(importState, 'Faxa_tauy', vm, data_global, rc)
-!          if (ChkErr(rc,__LINE__,u_FILE_u)) return
-!       end if
-!       n = 0
-!       do iy = 1,NY
-!          do ix = 1,NX
-!             n = n + 1
-!             UY0(ix,iy)  = data_global(n)
-!             UYN(ix,iy)  = data_global(n)
-!          end do
-!       end do
-!    end if
-!PSH end
 
        UX0(:,:) = def_value   ! atm u momentum
        UXN(:,:) = def_value
-       if (state_fldchk(importState, 'Faox_taux')) then 
-          call SetGlobalInput(importState, 'Faox_taux', vm, data_global, rc)
+       if (state_fldchk(importState, 'Faxa_taux')) then
+          call SetGlobalInput(importState, 'Faxa_taux', vm, data_global, rc)
           if (ChkErr(rc,__LINE__,u_FILE_u)) return
           n = 0
-          do iy = 1,NY 
-             do ix = 1,NX 
+          do iy = 1,NY
+             do ix = 1,NX
                 n = n + 1
                 UX0(ix,iy) = data_global(n)
                 UXN(ix,iy) = data_global(n)
@@ -518,14 +485,14 @@ contains
 
        UY0(:,:) = def_value   ! atm v momentum
        UYN(:,:) = def_value
-       if (state_fldchk(importState, 'Faox_tauy')) then 
+       if (state_fldchk(importState, 'Faxa_tauy')) then
           if (ChkErr(rc,__LINE__,u_FILE_u)) return
-          call SetGlobalInput(importState, 'Faox_tauy', vm, data_global, rc)
+          call SetGlobalInput(importState, 'Faxa_tauy', vm, data_global, rc)
           if (ChkErr(rc,__LINE__,u_FILE_u)) return
        end if
        n = 0
-       do iy = 1,NY 
-          do ix = 1,NX 
+       do iy = 1,NY
+          do ix = 1,NX
              n = n + 1
              UY0(ix,iy)  = data_global(n)
              UYN(ix,iy)  = data_global(n)
