@@ -467,27 +467,31 @@ contains
     ! ---------------
     ! wind stress - always assume that this is being imported for CESM
     ! ---------------
-!    call SetGlobalInput(importState, 'Faox_taux', vm, data_global, rc)
-    call SetGlobalInput(importState, 'So_bldepth', vm, data_global, rc)
-    if (ChkErr(rc,__LINE__,u_FILE_u)) return
-    n = 0
-    do iy = 1,NY 
-       do ix = 1,NX 
-          n = n + 1
-          TWTX0(ix,iy) = data_global(n) ! wind stress (x-dir)
-       end do
-    end do
+    TWTX0(:,:) = def_value
+        call SetGlobalInput(importState, 'Faxa_taux', vm, data_global, rc)
+        if (ChkErr(rc,__LINE__,u_FILE_u)) return
+        n = 0
+        do iy = 1,NY 
+           do ix = 1,NX 
+              n = n + 1
+              TWTX0(ix,iy) = data_global(n) ! wind stress (x-dir)
+           end do
+        end do
+    endif
 
 !    call SetGlobalInput(importState, 'Faox_tauy', vm, data_global, rc)
-    call SetGlobalInput(importState, 'So_bldepth', vm, data_global, rc)
-    if (ChkErr(rc,__LINE__,u_FILE_u)) return
-    n = 0
-    do iy = 1,NY
-       do ix = 1,NX
-          n = n + 1
-          TWTY0(ix,iy) = data_global(n) ! wind stress (y-dir)
-       end do
-    end do
+    TWTY0(:,:) = def_value
+    if (state_fldchk(importState, 'Faxa_tauy')) then
+        call SetGlobalInput(importState, 'Faxa_tauy', vm, data_global, rc)
+        if (ChkErr(rc,__LINE__,u_FILE_u)) return
+        n = 0
+        do iy = 1,NY
+           do ix = 1,NX
+              n = n + 1
+              TWTY0(ix,iy) = data_global(n) ! wind stress (y-dir)
+           end do
+        end do
+    endif
 !PSH TheoryWaves end
 #endif
     ! ---------------
