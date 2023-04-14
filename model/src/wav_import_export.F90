@@ -470,8 +470,8 @@ contains
 !    ! wind stress - always assume that this is being imported for CESM
 !    ! ---------------
     TWTX0(:,:) = def_value
-    if (state_fldchk(importState, 'Fwxx_taux')) then
-        call SetGlobalInput(importState, 'Fwxx_taux', vm, data_global, rc)
+    if (state_fldchk(importState, 'Foxx_taux')) then
+        call SetGlobalInput(importState, 'Foxx_taux', vm, data_global, rc)
         if (ChkErr(rc,__LINE__,u_FILE_u)) return
         n = 0
         do iy = 1,NY 
@@ -483,8 +483,8 @@ contains
     endif
 
     TWTY0(:,:) = def_value
-    if (state_fldchk(importState, 'Fwxx_tauy')) then
-        call SetGlobalInput(importState, 'Fwxx_tauy', vm, data_global, rc)
+    if (state_fldchk(importState, 'Foxx_tauy')) then
+        call SetGlobalInput(importState, 'Foxx_tauy', vm, data_global, rc)
         if (ChkErr(rc,__LINE__,u_FILE_u)) return
         n = 0
         do iy = 1,NY
