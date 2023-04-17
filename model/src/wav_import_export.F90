@@ -89,7 +89,7 @@ contains
        call fldlist_add(fldsToWav_num, fldsToWav, 'Sa_v'       )
        call fldlist_add(fldsToWav_num, fldsToWav, 'So_bldepth' )
 !PSH begin
-!       call fldlist_add(fldsToWav_num, fldsToWav, 'Foxx_taux' )
+       call fldlist_add(fldsToWav_num, fldsToWav, 'Fwxx_taux' )
 !       call fldlist_add(fldsToWav_num, fldsToWav, 'Foxx_tauy' )
 !PSH end
     else
