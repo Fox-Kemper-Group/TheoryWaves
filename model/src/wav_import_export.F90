@@ -82,15 +82,15 @@ contains
     call fldlist_add(fldsToWav_num, fldsToWav, 'So_v'       )
     call fldlist_add(fldsToWav_num, fldsToWav, 'So_t'       )
     call fldlist_add(fldsToWav_num, fldsToWav, 'Sa_tbot'    )
-    call fldlist_add(fldsToWav_num, fldsToWav, 'Foxx_taux'  )
-    call fldlist_add(fldsToWav_num, fldsToWav, 'Foxx_tauy'  )
+!    call fldlist_add(fldsToWav_num, fldsToWav, 'Foxx_taux'  )
+!    call fldlist_add(fldsToWav_num, fldsToWav, 'Foxx_tauy'  )
     if (cesmcoupled) then
        call fldlist_add(fldsToWav_num, fldsToWav, 'Sa_u'       )
        call fldlist_add(fldsToWav_num, fldsToWav, 'Sa_v'       )
        call fldlist_add(fldsToWav_num, fldsToWav, 'So_bldepth' )
 !PSH begin
-       call fldlist_add(fldsToWav_num, fldsToWav, 'Foxx_taux' )
-       call fldlist_add(fldsToWav_num, fldsToWav, 'Foxx_tauy' )
+!       call fldlist_add(fldsToWav_num, fldsToWav, 'Foxx_taux' )
+!       call fldlist_add(fldsToWav_num, fldsToWav, 'Foxx_tauy' )
 !PSH end
     else
        call fldlist_add(fldsToWav_num, fldsToWav, 'Sa_u10m'    )
@@ -469,31 +469,31 @@ contains
 !    ! ---------------
 !    ! wind stress - always assume that this is being imported for CESM
 !    ! ---------------
-    TWTX0(:,:) = def_value
-    if (state_fldchk(importState, 'Foxx_taux')) then
-        call SetGlobalInput(importState, 'Foxx_taux', vm, data_global, rc)
-        if (ChkErr(rc,__LINE__,u_FILE_u)) return
-        n = 0
-        do iy = 1,NY 
-           do ix = 1,NX 
-              n = n + 1
-              TWTX0(ix,iy) = data_global(n) ! wind stress (x-dir)
-           end do
-        end do
-    endif
+!    TWTX0(:,:) = def_value
+!    if (state_fldchk(importState, 'Foxx_taux')) then
+!        call SetGlobalInput(importState, 'Foxx_taux', vm, data_global, rc)
+!        if (ChkErr(rc,__LINE__,u_FILE_u)) return
+!        n = 0
+!        do iy = 1,NY 
+!           do ix = 1,NX 
+!              n = n + 1
+!              TWTX0(ix,iy) = data_global(n) ! wind stress (x-dir)
+!           end do
+!        end do
+!    endif
 
-    TWTY0(:,:) = def_value
-    if (state_fldchk(importState, 'Foxx_tauy')) then
-        call SetGlobalInput(importState, 'Foxx_tauy', vm, data_global, rc)
-        if (ChkErr(rc,__LINE__,u_FILE_u)) return
-        n = 0
-        do iy = 1,NY
-           do ix = 1,NX
-              n = n + 1
-              TWTY0(ix,iy) = data_global(n) ! wind stress (y-dir)
-           end do
-        end do
-    endif
+!    TWTY0(:,:) = def_value
+!    if (state_fldchk(importState, 'Foxx_tauy')) then
+!        call SetGlobalInput(importState, 'Foxx_tauy', vm, data_global, rc)
+!        if (ChkErr(rc,__LINE__,u_FILE_u)) return
+!        n = 0
+!        do iy = 1,NY
+!           do ix = 1,NX
+!              n = n + 1
+!              TWTY0(ix,iy) = data_global(n) ! wind stress (y-dir)
+!           end do
+!        end do
+!    endif
 !PSH TheoryWaves end
 #endif
     ! ---------------
