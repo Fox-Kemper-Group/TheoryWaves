@@ -466,21 +466,21 @@ contains
        end do
     end do
 !PSH TheoryWaves begin
-!    ! ---------------
-!    ! wind stress - always assume that this is being imported for CESM
-!    ! ---------------
-!    TWTX0(:,:) = def_value
-!    if (state_fldchk(importState, 'Foxx_taux')) then
-!        call SetGlobalInput(importState, 'Foxx_taux', vm, data_global, rc)
-!        if (ChkErr(rc,__LINE__,u_FILE_u)) return
-!        n = 0
-!        do iy = 1,NY 
-!           do ix = 1,NX 
-!              n = n + 1
-!              TWTX0(ix,iy) = data_global(n) ! wind stress (x-dir)
-!           end do
-!        end do
-!    endif
+    ! ---------------
+    ! wind stress - always assume that this is being imported for CESM
+    ! ---------------
+    TWTX0(:,:) = def_value
+    if (state_fldchk(importState, 'Fwxx_taux')) then
+        call SetGlobalInput(importState, 'Fwxx_taux', vm, data_global, rc)
+        if (ChkErr(rc,__LINE__,u_FILE_u)) return
+        n = 0
+        do iy = 1,NY 
+           do ix = 1,NX 
+              n = n + 1
+              TWTX0(ix,iy) = data_global(n) ! wind stress (x-dir)
+           end do
+        end do
+    endif
 
 !    TWTY0(:,:) = def_value
 !    if (state_fldchk(importState, 'Foxx_tauy')) then
