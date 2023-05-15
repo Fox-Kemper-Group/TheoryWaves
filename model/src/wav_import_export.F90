@@ -482,18 +482,18 @@ contains
         end do
     endif
 
-!    TWTY0(:,:) = def_value
-!    if (state_fldchk(importState, 'Foxx_tauy')) then
-!        call SetGlobalInput(importState, 'Foxx_tauy', vm, data_global, rc)
-!        if (ChkErr(rc,__LINE__,u_FILE_u)) return
-!        n = 0
-!        do iy = 1,NY
-!           do ix = 1,NX
-!              n = n + 1
-!              TWTY0(ix,iy) = data_global(n) ! wind stress (y-dir)
-!           end do
-!        end do
-!    endif
+    TWTY0(:,:) = def_value
+    if (state_fldchk(importState, 'Fwxx_tauy')) then
+        call SetGlobalInput(importState, 'Fwxx_tauy', vm, data_global, rc)
+        if (ChkErr(rc,__LINE__,u_FILE_u)) return
+        n = 0
+        do iy = 1,NY
+           do ix = 1,NX
+              n = n + 1
+              TWTY0(ix,iy) = data_global(n) ! wind stress (y-dir)
+           end do
+        end do
+    endif
 !PSH TheoryWaves end
 #endif
     ! ---------------
@@ -505,9 +505,6 @@ contains
 
        UX0(:,:) = def_value   ! atm u momentum
        UXN(:,:) = def_value
-!PSH begin
-!       TWTX0(:,:) = def_value
-!PSH end
        if (state_fldchk(importState, 'Faxa_taux')) then
           call SetGlobalInput(importState, 'Faxa_taux', vm, data_global, rc)
           if (ChkErr(rc,__LINE__,u_FILE_u)) return
@@ -517,18 +514,12 @@ contains
                 n = n + 1
                 UX0(ix,iy) = data_global(n)
                 UXN(ix,iy) = data_global(n)
-!PSH begin
-!                TWTX0(ix,iy) = data_global(n) ! wind stress (x-dir)
-!PSH end
              end do
           end do
        end if
 
        UY0(:,:) = def_value   ! atm v momentum
        UYN(:,:) = def_value
-!PSH begin
-!       TWTY0(:,:) = def_value
-!PSH end
        if (state_fldchk(importState, 'Faxa_tauy')) then
           if (ChkErr(rc,__LINE__,u_FILE_u)) return
           call SetGlobalInput(importState, 'Faxa_tauy', vm, data_global, rc)
@@ -540,9 +531,6 @@ contains
              n = n + 1
              UY0(ix,iy)  = data_global(n)
              UYN(ix,iy)  = data_global(n)
-!PSH begin
-!             TWTY0(ix,iy) = data_global(n) ! wind stress (y-dir)
-!PSH end
           end do
        end do
     end if
