@@ -2828,7 +2828,10 @@
        DO ISEA = 1, NSEA
          IX     = MAPSF(ISEA,1)
          IY     = MAPSF(ISEA,2)
-         USTTW(ISEA) = MAX(1E-4, SQRT(TAUA(ISEA) / RHOWTW(ISEA)))
+         TAUTW(ISEA) = SQRT((TWTX0(ISEA)**2)+(TWTY0(ISEA)**2))
+         TAUDTW(ISEA) = ATAN2(TWTY0, TWTX0)
+         USTTW(ISEA) = MAX(1E-4, SQRT(TAUTW(ISEA) / RHOWTW(ISEA)))
+!         USTTW(ISEA) = MAX(1E-4, SQRT(TAUA(ISEA) / RHOWTW(ISEA)))
 !         USTTW(ISEA) = MAX(1E-4,SQRT(SQRT((TWTX0(ISEA)**2)+(TWTY0(ISEA)**2)) / RHOWTW(ISEA)))
          if ( MAPSTA(IY,IX) .eq. 1 ) then
            EFTW(ISEA) = EFactor_model(U10(ISEA), USTTW(ISEA), HML(IX,IY))
