@@ -231,6 +231,8 @@ contains
     flgrd( 6,15)  = .true.  ! 'Friction velocity (ocean)'
     flgrd( 6,16)  = .true.  ! 'Enhancement factor'
     flgrd( 6,17)  = .true.  ! 'Friction velocity (atm)'
+    flgrd( 6,18)  = .true.  ! 'Wind stress magnitude'
+    flgrd( 6,19)  = .true.  ! 'Wind stress direction'
 !PSH TheoryWaves end
 
     ! 7) Wave-bottom layer
