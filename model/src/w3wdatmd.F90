@@ -77,6 +77,8 @@
 !                               otherwise VA is skipped.
 !PSH TheoryWaves begin
 !      USTTW     R.A.  Public   Friction velocity (absolute, ocean-side)
+!      TAUTW     R.A.  Public   Wind stress magnitude (N/m2)
+!      TAUDTW    R.A.  Public   Wind stress direction
 !      RHOWTW    R.A.  Public   Water density (kg/m3)
 !      EFTW      R.A.  Public   Enhancement factor (-)
 !PSH TheoryWaves end
@@ -140,7 +142,8 @@
         REAL, POINTER         :: VA(:,:), WLV(:), ICE(:), RHOAIR(:),   &
                                  UST(:), USTDIR(:), ASF(:), FPIS(:),  &
                                  BERG(:), ICEH(:), ICEF(:), ICEDMAX(:),  &
-                                 USTTW(:), RHOWTW(:), EFTW(:)
+                                 USTTW(:), RHOWTW(:), EFTW(:), &
+                                 TAUTW(:), TAUDTW(:)
 
 #ifdef W3_SETUP
   REAL, POINTER :: ZETA_SETUP(:), FX_zs(:), FY_zs(:)
@@ -176,7 +179,8 @@
       REAL, POINTER           :: VA(:,:), WLV(:), ICE(:), RHOAIR(:),  &
                                  UST(:), USTDIR(:), ASF(:), FPIS(:),  &
                                  BERG(:), ICEH(:), ICEF(:), ICEDMAX(:),  &
-                                 USTTW(:), RHOWTW(:), EFTW(:)
+                                 USTTW(:), RHOWTW(:), EFTW(:), &
+                                 TAUTW(:), TAUDTW(:)
 #ifdef W3_SETUP
         REAL, POINTER :: ZETA_SETUP(:), FX_zs(:), FY_zs(:)
         REAL, POINTER :: SXX_zs(:), SXY_zs(:), SYY_zs(:)
@@ -649,6 +653,8 @@
                  WDATAS(IMOD)%RHOWTW(0:NSEA),                         &
                  WDATAS(IMOD)%EFTW(0:NSEA),                           &
                  WDATAS(IMOD)%USTTW(0:NSEA),                          &
+                 WDATAS(IMOD)%TAUTW(0:NSEA),                          &
+                 WDATAS(IMOD)%TAUDTW(0:NSEA),                         &
                  WDATAS(IMOD)%UST(0:NSEATM),                          &
                  WDATAS(IMOD)%USTDIR(0:NSEATM),                       &
                  WDATAS(IMOD)%ASF(NSEATM),                            &
@@ -678,6 +684,8 @@
 !PSH TheoryWaves begin
       WDATAS(IMOD)%RHOWTW(0:NSEA) = 1025.
       WDATAS(IMOD)%USTTW (0:NSEA) = 1.E-5
+      WDATAS(IMOD)%TAUTW (0:NSEA) = 1.E-5
+      WDATAS(IMOD)%TAUDTW(0:NSEA) = 0.
       WDATAS(IMOD)%EFTW  (0:NSEA) = 1.
 !PSH TheoryWaves end
 #ifdef W3_DEBUGINIT
@@ -898,6 +906,8 @@
 !PSH TheoryWaves begin
           RHOWTW => WDATAS(IMOD)%RHOWTW
           USTTW  => WDATAS(IMOD)%USTTW
+          TAUTW  => WDATAS(IMOD)%TAUTW
+          TAUDTW => WDATAS(IMOD)%TAUDTW
           EFTW   => WDATAS(IMOD)%EFTW
 !PSH TheoryWaves end
         END IF
