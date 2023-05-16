@@ -82,16 +82,12 @@ contains
     call fldlist_add(fldsToWav_num, fldsToWav, 'So_v'       )
     call fldlist_add(fldsToWav_num, fldsToWav, 'So_t'       )
     call fldlist_add(fldsToWav_num, fldsToWav, 'Sa_tbot'    )
-!    call fldlist_add(fldsToWav_num, fldsToWav, 'Foxx_taux'  )
-!    call fldlist_add(fldsToWav_num, fldsToWav, 'Foxx_tauy'  )
+    call fldlist_add(fldsToWav_num, fldsToWav, 'Fwxx_taux'  )
+    call fldlist_add(fldsToWav_num, fldsToWav, 'Fwxx_tauy'  )
     if (cesmcoupled) then
        call fldlist_add(fldsToWav_num, fldsToWav, 'Sa_u'       )
        call fldlist_add(fldsToWav_num, fldsToWav, 'Sa_v'       )
        call fldlist_add(fldsToWav_num, fldsToWav, 'So_bldepth' )
-!PSH begin
-       call fldlist_add(fldsToWav_num, fldsToWav, 'Fwxx_taux' )
-!       call fldlist_add(fldsToWav_num, fldsToWav, 'Foxx_tauy' )
-!PSH end
     else
        call fldlist_add(fldsToWav_num, fldsToWav, 'Sa_u10m'    )
        call fldlist_add(fldsToWav_num, fldsToWav, 'Sa_v10m'    )
