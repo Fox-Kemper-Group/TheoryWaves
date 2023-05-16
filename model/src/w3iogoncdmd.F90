@@ -36,6 +36,7 @@ contains
     USE W3IDATMD, ONLY: TU0, UX0, UY0, TUN, UXN, UYN
     USE W3ADATMD, ONLY: U10, U10D, WBT
     USE W3WDATMD, ONLY: USTTW, RHOWTW, EFTW, RHOAIR
+    USE W3WDATMD, ONLY: TAUTW, TAUDTW
     USE W3ADATMD, ONLY: TAUA, TAUADIR
 !PSH TheoryWaves end
     USE NETCDF
@@ -134,6 +135,8 @@ contains
                                UST   (ISEA) = UNDEF
                                USTDIR(ISEA) = UNDEF
                                USTTW (ISEA) = UNDEF
+                               TAUTW (ISEA) = UNDEF
+                               TAUDTW(ISEA) = UNDEF
                                EFTW  (ISEA) = UNDEF
 !PSH TheoryWaves end
           IF ( FLOGRD( 2,10) ) HSIG  (ISEA) = UNDEF
@@ -699,6 +702,18 @@ contains
                    FLDSTR1 = 'UST'
                    UNITSTR1 = 'm/s'
                    LNSTR1 = 'Skin friction velocity, air side'
+                else if ( IFI .eq. 6 .and. IFJ .eq. 18 ) then
+                   AUX1(1:NSEA) = TAUTW(1:NSEA)
+                   WAUX1 = .true.
+                   FLDSTR1 = 'TAUTW'
+                   UNITSTR1 = 'N/m^2'
+                   LNSTR1 = 'Wind stress magnitude'
+                else if ( IFI .eq. 6 .and. IFJ .eq. 19 ) then
+                   AUX1(1:NSEA) = TAUDTW(1:NSEA)
+                   WAUX1 = .true.
+                   FLDSTR1 = 'TAUDTW'
+                   UNITSTR1 = ''
+                   LNSTR1 = 'Wind stress direction'
 ! PSH TheoryWaves end
 
                 !
