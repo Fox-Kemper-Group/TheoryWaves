@@ -29,6 +29,16 @@ contains
     USE W3ADATMD, ONLY: CFLXYMAX, CFLTHMAX, CFLKMAX, P2SMS, US3D
     USE W3ADATMD, ONLY: TH1M, STH1M, TH2M, STH2M, HSIG, PHICE, TAUICE
     USE W3ADATMD, ONLY: STMAXE, STMAXD, HMAXE, HCMAXE, HMAXD, HCMAXD, USSP
+!PSH TheoryWaves begin
+    USE W3IDATMD, ONLY: HML
+    USE W3IDATMD, ONLY: TWTX0, TWTY0
+    USE W3IDATMD, ONLY: CX0, CY0, CXN, CYN
+    USE W3IDATMD, ONLY: TU0, UX0, UY0, TUN, UXN, UYN
+    USE W3ADATMD, ONLY: U10, U10D, WBT
+    USE W3WDATMD, ONLY: USTTW, RHOWTW, EFTW, RHOAIR
+    USE W3WDATMD, ONLY: TAUTW, TAUDTW
+    USE W3ADATMD, ONLY: TAUA, TAUADIR
+!PSH TheoryWaves end
     USE NETCDF
 
     IMPLICIT NONE
@@ -117,9 +127,18 @@ contains
           IF ( FLOGRD( 2, 6) ) FP0   (ISEA) = UNDEF
           IF ( FLOGRD( 2, 7) ) THM   (ISEA) = UNDEF
           IF ( FLOGRD( 2, 8) ) THS   (ISEA) = UNDEF
+!PSH TheoryWaves begin
+!          IF ( FLOGRD( 2, 9) ) THP0  (ISEA) = UNDEF
+!                               UST   (ISEA) = UNDEF
+!                               USTDIR(ISEA) = UNDEF
           IF ( FLOGRD( 2, 9) ) THP0  (ISEA) = UNDEF
                                UST   (ISEA) = UNDEF
                                USTDIR(ISEA) = UNDEF
+                               USTTW (ISEA) = UNDEF
+                               TAUTW (ISEA) = UNDEF
+                               TAUDTW(ISEA) = UNDEF
+                               EFTW  (ISEA) = UNDEF
+!PSH TheoryWaves end
           IF ( FLOGRD( 2,10) ) HSIG  (ISEA) = UNDEF
           IF ( FLOGRD( 2,11) ) STMAXE(ISEA) = UNDEF
           IF ( FLOGRD( 2,12) ) STMAXD(ISEA) = UNDEF
@@ -318,18 +337,34 @@ contains
                    UNITSTR2 = 'm/s'
                    LNSTR1 = 'Mean wind, x-component'
                    LNSTR2 = 'Mean wind, y-component'
+!PSH TheoryWaves begin
+!                else if ( IFI .eq. 1 .and. IFJ .eq. 4 ) then
+!                   AUX1(1:NSEA) = AS(1:NSEA)
+!                   WAUX1 = .true.
+!                   FLDSTR1 = 'AS'
+!                   UNITSTR1 = 'deg C'
+!                   LNSTR1 = 'Air-sea temperature difference'
+!                else if ( IFI .eq. 1 .and. IFJ .eq. 5 ) then
+!                   AUX1(1:NSEA) = WLV(1:NSEA)
+!                   WAUX1 = .true.
+!                   FLDSTR1 = 'WLV'
+!                   UNITSTR1 = 'm'
+!                   LNSTR1 = 'Water levels'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 4 ) then
-                   AUX1(1:NSEA) = AS(1:NSEA)
+                   AUX1(1:NSEA) = RHOAIR(1:NSEA)
                    WAUX1 = .true.
-                   FLDSTR1 = 'AS'
-                   UNITSTR1 = 'deg C'
-                   LNSTR1 = 'Air-sea temperature difference'
+                   FLDSTR1 = 'RHOAIR'
+                   UNITSTR1 = 'kg/m3'
+                   LNSTR1 = 'Air density'
                 else if ( IFI .eq. 1 .and. IFJ .eq. 5 ) then
-                   AUX1(1:NSEA) = WLV(1:NSEA)
+                   AUX1(1:NSEA) = RHOWTW(1:NSEA)
                    WAUX1 = .true.
-                   FLDSTR1 = 'WLV'
-                   UNITSTR1 = 'm'
-                   LNSTR1 = 'Water levels'
+                   FLDSTR1 = 'RHOWTW'
+                   UNITSTR1 = 'kg/m3'
+                   LNSTR1 = 'Water density'
+
+!PSH TheoryWaves end
+
                 else if ( IFI .eq. 1 .and. IFJ .eq. 6 ) then
                    AUX1(1:NSEA) = ICE(1:NSEA)
                    WAUX1 = .true.
@@ -342,13 +377,138 @@ contains
                    FLDSTR1 = 'BERG'
                    UNITSTR1 = '1'
                    LNSTR1 = ''
+!PSH TheoryWaves begin 
+                else if ( IFI .eq. 1 .and. IFJ .eq. 8 ) then
+                   AUX1(1:NSEA) = U10(1:NSEA)
+                   WAUX1 = .true.
+                   FLDSTR1 = 'U10'
+                   UNITSTR1 = 'm/s'
+                   LNSTR1 = 'Wind speed at 10 m'
+                else if ( IFI .eq. 1 .and. IFJ .eq. 9 ) then
+                   do ISEA=1, NSEA
+                      IX     = MAPSF(ISEA,1)
+                      IY     = MAPSF(ISEA,2)
+                      if ( MAPSTA(IY,IX) .eq. 1 ) then
+                         AUX1(ISEA) = CX0(IX,IY)   
+                      else
+                         AUX1(ISEA) = UNDEF
+                      end if
+                   end do
+                   WAUX1 = .true.
+                   FLDSTR1 = 'CX0'
+                   UNITSTR1 = 'm/s'   
+                   LNSTR1 = 'Current velocity (x)'
+                else if ( IFI .eq. 1 .and. IFJ .eq. 10 ) then
+                   do ISEA=1, NSEA
+                      IX     = MAPSF(ISEA,1)
+                      IY     = MAPSF(ISEA,2)
+                      if ( MAPSTA(IY,IX) .eq. 1 ) then
+                         AUX1(ISEA) = CY0(IX,IY)   
+                      else
+                         AUX1(ISEA) = UNDEF
+                      end if
+                   end do
+                   WAUX1 = .true.
+                   FLDSTR1 = 'CY0'
+                   UNITSTR1 = 'm/s'   
+                   LNSTR1 = 'Current Velocity (y)' 
+               else if ( IFI .eq. 1 .and. IFJ .eq. 11 ) then
+                   do ISEA=1, NSEA
+                      IX     = MAPSF(ISEA,1)
+                      IY     = MAPSF(ISEA,2)
+                      if ( MAPSTA(IY,IX) .eq. 1 ) then
+                         AUX1(ISEA) = HML(IX,IY)   
+                      else
+                         AUX1(ISEA) = UNDEF
+                      end if
+                   end do
+                   WAUX1 = .true.
+                   FLDSTR1 = 'HML'
+                   UNITSTR1 = 'm'   
+                   LNSTR1 = 'Mixed-Layer Depth'
+                else if ( IFI .eq. 1 .and. IFJ .eq. 12 ) then
+                   do ISEA=1, NSEA
+                      IX     = MAPSF(ISEA,1)
+                      IY     = MAPSF(ISEA,2)
+                      if ( MAPSTA(IY,IX) .eq. 1 ) then
+!                         AUX1(ISEA) = UX0(IX,IY)
+                         AUX1(ISEA) = TWTX0(IX,IY)
+                      else
+                         AUX1(ISEA) = UNDEF
+                      end if
+                   end do
+                   WAUX1 = .true.
+!                   FLDSTR1 = 'UX0'
+                   FLDSTR1 = 'TWTX0'
+!                   UNITSTR1 = 'kg*m/s'
+                   UNITSTR1 = 'N/m^2'
+!                   LNSTR1 = 'Atm momentum flux (x)'
+                   LNSTR1 = 'Wind stress (x)'
+                else if ( IFI .eq. 1 .and. IFJ .eq. 13 ) then
+                   do ISEA=1, NSEA
+                      IX     = MAPSF(ISEA,1)
+                      IY     = MAPSF(ISEA,2)
+                      if ( MAPSTA(IY,IX) .eq. 1 ) then
+!                         AUX1(ISEA) = UY0(IX,IY)
+                         AUX1(ISEA) = TWTY0(IX,IY)
+                      else
+                         AUX1(ISEA) = UNDEF
+                      end if
+                   end do
+                   WAUX1 = .true.
+!                   FLDSTR1 = 'UY0'
+!                   UNITSTR1 = 'kg*m/s'
+!                   LNSTR1 = 'Atm momentum flux (y)'
+                   FLDSTR1 = 'TWTY0'
+                   UNITSTR1 = 'N/m^2'
+                   LNSTR1 = 'Wind stress (y)'
+                else if ( IFI .eq. 1 .and. IFJ .eq. 14 ) then
+                   do ISEA=1, NSEA
+                      IX     = MAPSF(ISEA,1)
+                      IY     = MAPSF(ISEA,2)
+                      if ( MAPSTA(IY,IX) .eq. 1 ) then
+                         AUX1(ISEA) = UX0(IX,IY)
+                      else
+                         AUX1(ISEA) = UNDEF
+                      end if
+                   end do
+                   WAUX1 = .true.
+                   FLDSTR1 = 'UX0'
+                   UNITSTR1 = 'kg*m/s'
+                   LNSTR1 = 'Atm momentum flux (x)'
+                else if ( IFI .eq. 1 .and. IFJ .eq. 15 ) then
+                   do ISEA=1, NSEA
+                      IX     = MAPSF(ISEA,1)
+                      IY     = MAPSF(ISEA,2)
+                      if ( MAPSTA(IY,IX) .eq. 1 ) then
+                         AUX1(ISEA) = UY0(IX,IY)
+                      else
+                         AUX1(ISEA) = UNDEF
+                      end if
+                   end do
+                   WAUX1 = .true.
+                   FLDSTR1 = 'UY0'
+                   UNITSTR1 = 'kg*m/s'
+                   LNSTR1 = 'Atm momentum flux (y)'
+!                else if ( IFI .eq. 1 .and. IFJ .eq. 14 ) then
+!                   AUX1(1:NSEA) = TAUA(1:NSEA)
+!                   WAUX1 = .true.
+!                   FLDSTR1 = 'TAUA'
+!                   UNITSTR1 = 'kg*m/s'
+!                   LNSTR1 = 'Atm momentum flux (magnitude)'
+!                else if ( IFI .eq. 1 .and. IFJ .eq. 15 ) then
+!                   AUX1(1:NSEA) = TAUADIR(1:NSEA)
+!                   WAUX1 = .true.
+!                   FLDSTR1 = 'TAUADIR'
+!                   UNITSTR1 = ''
+!                   LNSTR1 = 'Atm momentum flux (direction)'
+!PSH TheoryWaves end 
                 !
                 !     Section 2)
                 !
                 else if ( IFI .eq. 2 .and. IFJ .eq. 1 ) then
                    AUX1(1:NSEA) = HS(1:NSEA)
-                   WAUX1 = .true.
-                   FLDSTR1 = 'HS'
+
                    UNITSTR1 = 'm'
                    LNSTR1 = 'Significant wave height'
                 else if ( IFI .eq. 2 .and. IFJ .eq. 2 ) then
@@ -523,6 +683,39 @@ contains
                    FLDSTR1 = 'LANGMT'
                    UNITSTR1 = ''
                    LNSTR1 = 'Turbulent Langmuir number (La_t)'
+! PSH TheoryWaves begin
+                else if ( IFI .eq. 6 .and. IFJ .eq. 15 ) then
+                   AUX1(1:NSEA) = USTTW(1:NSEA)
+                   WAUX1 = .true.
+                   FLDSTR1 = 'USTTW'
+                   UNITSTR1 = 'm/s'
+                   LNSTR1 = 'Skin friction velocity, water side'
+                else if ( IFI .eq. 6 .and. IFJ .eq. 16 ) then
+                   AUX1(1:NSEA) = EFTW(1:NSEA)
+                   WAUX1 = .true.
+                   FLDSTR1 = 'EFTW'
+                   UNITSTR1 = ''
+                   LNSTR1 = 'Enhancement factor'
+                else if ( IFI .eq. 6 .and. IFJ .eq. 17 ) then
+                   AUX1(1:NSEA) = UST(1:NSEA)
+                   WAUX1 = .true.
+                   FLDSTR1 = 'UST'
+                   UNITSTR1 = 'm/s'
+                   LNSTR1 = 'Skin friction velocity, air side'
+                else if ( IFI .eq. 6 .and. IFJ .eq. 18 ) then
+                   AUX1(1:NSEA) = TAUTW(1:NSEA)
+                   WAUX1 = .true.
+                   FLDSTR1 = 'TAUTW'
+                   UNITSTR1 = 'N/m^2'
+                   LNSTR1 = 'Wind stress magnitude'
+                else if ( IFI .eq. 6 .and. IFJ .eq. 19 ) then
+                   AUX1(1:NSEA) = TAUDTW(1:NSEA)
+                   WAUX1 = .true.
+                   FLDSTR1 = 'TAUDTW'
+                   UNITSTR1 = ''
+                   LNSTR1 = 'Wind stress direction'
+! PSH TheoryWaves end
+
                 !
                 !     Section 7)
                 !
@@ -575,10 +768,9 @@ contains
                    AUX1(1:NSEA) = USERO(1:NSEA,2)
                    WAUX1 = .true.
                    FLDSTR1 = 'USERO'
-                   UNITSTR1 = '1'
+                   UNITSTR1 = '1' 
                    LNSTR1 = 'User defined variable'
                 end if
-
                 ! netcdf history
                 if (NCLOOP == 1) then
                    ! write(ndse,*) 'w3iogo NCLOOP=',NCLOOP, WAUX1, WAUX2, WAUX3,WAUXE,WAUXEF

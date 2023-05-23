@@ -85,6 +85,11 @@
       REAL, PARAMETER         :: G1PI1I = 1. / ( GRAV * TPI )
 !
       REAL                    :: UNDEF = -999.9
+!PSH TheoryWaves begin
+      REAL, PARAMETER         :: ZERO = 0.
+      REAL, PARAMETER         :: ONE = 1. 
+!PSH TheoryWaves end
+
 !
 ! Parameters for friction factor table 
 !

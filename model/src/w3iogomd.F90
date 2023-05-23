@@ -1219,6 +1219,9 @@
                           ICPRT, DTPRT, WSCUT, NOSWLL, FLOGRD, FLOGR2,&
                           NOGRP, NGRPP
       USE W3ADATMD, ONLY: NSEALM
+!PSH TheoryWaves begin
+      USE W3ADATMD, ONLY: U10, U10D, WBT
+!PSH TheoryWaves end
 #ifdef CESMCOUPLED
       ! USSX, USSY   : surface Stokes drift (SD)
       ! USSXH, USSYH : surface layer (SL) averaged SD
@@ -1964,7 +1967,7 @@
 #ifdef CESMCOUPLED
         IX = MAPSF(ISEA,1)
         IY = MAPSF(ISEA,2)
-        HS = HML(IX,IY)/5.     ! depth over which SD is averaged
+        HS = HML(IX,IY)/5.     ! depth over which SD is averaged !PSH Should be HSL, not HS?
 #endif
 !
 ! 3.a Directional mss parameters
@@ -2028,7 +2031,10 @@
 #ifdef W3_O9
             IF ( ET(JSEA) .GE. 0. ) THEN
 #endif
-            HS (JSEA) = 4. * SQRT ( ET(JSEA) )
+!PSH TheoryWaves begin
+!            HS (JSEA) = 4. * SQRT ( ET(JSEA) ) ! original WW3 formulation
+            HS(JSEA) = 0.0246 * U10(ISEA)**2
+!PSH TheoryWaves end
 #ifdef W3_O9
               ELSE
                 HS (JSEA) = - 4. * SQRT ( -ET(JSEA) )

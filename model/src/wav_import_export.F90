@@ -82,6 +82,8 @@ contains
     call fldlist_add(fldsToWav_num, fldsToWav, 'So_v'       )
     call fldlist_add(fldsToWav_num, fldsToWav, 'So_t'       )
     call fldlist_add(fldsToWav_num, fldsToWav, 'Sa_tbot'    )
+    call fldlist_add(fldsToWav_num, fldsToWav, 'Fwxx_taux'  )
+    call fldlist_add(fldsToWav_num, fldsToWav, 'Fwxx_tauy'  )
     if (cesmcoupled) then
        call fldlist_add(fldsToWav_num, fldsToWav, 'Sa_u'       )
        call fldlist_add(fldsToWav_num, fldsToWav, 'Sa_v'       )
@@ -218,6 +220,9 @@ contains
     use w3wdatmd    , only: time
 #ifdef CESMCOUPLED
     use w3idatmd    , only: HML
+!PSH TheoryWaves begin
+    use w3idatmd    , only: TWTX0, TWTY0
+!PSH TheoryWaves end
 #endif
 
     ! input/output variables
@@ -456,6 +461,36 @@ contains
           HML(ix,iy) = max(data_global(n), 5.) ! ocn mixing layer depth
        end do
     end do
+!PSH TheoryWaves begin
+    ! ---------------
+    ! wind stress - always assume that this is being imported for CESM
+    ! ---------------
+    TWTX0(:,:) = def_value
+    if (state_fldchk(importState, 'Fwxx_taux')) then
+        call SetGlobalInput(importState, 'Fwxx_taux', vm, data_global, rc)
+        if (ChkErr(rc,__LINE__,u_FILE_u)) return
+        n = 0
+        do iy = 1,NY 
+           do ix = 1,NX 
+              n = n + 1
+              TWTX0(ix,iy) = data_global(n) ! wind stress (x-dir)
+           end do
+        end do
+    endif
+
+    TWTY0(:,:) = def_value
+    if (state_fldchk(importState, 'Fwxx_tauy')) then
+        call SetGlobalInput(importState, 'Fwxx_tauy', vm, data_global, rc)
+        if (ChkErr(rc,__LINE__,u_FILE_u)) return
+        n = 0
+        do iy = 1,NY
+           do ix = 1,NX
+              n = n + 1
+              TWTY0(ix,iy) = data_global(n) ! wind stress (y-dir)
+           end do
+        end do
+    endif
+!PSH TheoryWaves end
 #endif
     ! ---------------
     ! INFLAGS1(5) - atm momentum fields
@@ -495,6 +530,7 @@ contains
           end do
        end do
     end if
+
     ! ---------------
     ! INFLAGS1(-7)
     ! ---------------

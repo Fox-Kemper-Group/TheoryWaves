@@ -66,7 +66,10 @@ contains
     ! momentum fluxes   : inflags1(5)
 
     inflags1(:)   = .false.
-    inflags1(1:4) = .true.
+! PSH Begin
+!    inflags1(1:4) = .true.
+    inflags1(1:5) = .true.
+! PSH End
     inflags2(:)   = .false.
     if (wav_coupling_to_cice) then
        inflags1(-7) = .true. ! ice thickness
@@ -130,22 +133,32 @@ contains
     flgr2(:,:)  = .false.   ! coupled fields, w3init w3iog are not ready to deal with these yet
 
     ! 1) Forcing fields
+!PSH Theory Waves begin
     flgrd( 1, 1)  = .false. ! Water depth
-    flgrd( 1, 2)  = .false. ! Current vel.
+    flgrd( 1, 2)  = .true.  ! Current vel.
     flgrd( 1, 3)  = .true.  ! Wind speed
-    flgrd( 1, 4)  = .false. ! Air-sea temp. dif.
-    flgrd( 1, 5)  = .false. ! Water level
-    flgrd( 1, 6)  = .true.  ! Ice concentration
+    flgrd( 1, 4)  = .true.  ! Air density
+    flgrd( 1, 5)  = .true.  ! Water density
+    flgrd( 1, 6)  = .false. ! Ice concentration
     flgrd( 1, 7)  = .false. ! Iceberg damp coeffic
+    flgrd( 1, 8)  = .true.  ! Wind speed at 10 m (U10) !PSH
+    flgrd( 1, 9)  = .false. ! Currents, x-dir (CX0) !PSH
+    flgrd( 1, 10) = .false. ! Currents, y-dir (CY0) !PSH
+    flgrd( 1, 11) = .true.  ! Boundary layer depth (HML)
+    flgrd( 1, 12) = .true.  ! Atmospheric momentum, x-dir (UX0) !PSH
+    flgrd( 1, 13) = .true.  ! Atmospheric momentum, y-dir (UY0) !PSH
+    flgrd( 1, 14) = .true.  ! Atmospheric momentum, magnitude (TAUA) !PSH
+    flgrd( 1, 15) = .true.  ! Atmospheric momentum, direction (TAUADIR) !PSH
+!PSH Theory Waves end
 
     ! 2) Standard mean wave parameters
     flgrd( 2, 1)  = .true.  ! Wave height
     flgrd( 2, 2)  = .false. ! Mean wave length
-    flgrd( 2, 3)  = .true.  ! Mean wave period(+2)
-    flgrd( 2, 4)  = .true.  ! Mean wave period(-1)
-    flgrd( 2, 5)  = .true.  ! Mean wave period(+1)
-    flgrd( 2, 6)  = .true.  ! Peak frequency
-    flgrd( 2, 7)  = .true.  ! Mean wave dir. a1b1
+    flgrd( 2, 3)  = .false.  ! Mean wave period(+2)
+    flgrd( 2, 4)  = .false.  ! Mean wave period(-1)
+    flgrd( 2, 5)  = .false.  ! Mean wave period(+1)
+    flgrd( 2, 6)  = .false.  ! Peak frequency
+    flgrd( 2, 7)  = .false.  ! Mean wave dir. a1b1
     flgrd( 2, 8)  = .false. ! Mean dir. spr. a1b1
     flgrd( 2, 9)  = .false. ! Peak direction
     flgrd( 2, 10) = .false. ! Infragravity height
@@ -160,7 +173,7 @@ contains
     ! 3) Frequency-dependent standard parameters
     ! Whether the 1D Freq. Spectrum gets allocated is decided in the grid_inp file
     ! ~/ww3_toolbox/grids/grid_inp/ww3_grid.inp.ww3a namelist section:  &OUTS E3D = 1 /
-    flgrd( 3, 1)  = .true.  ! 1D Freq. Spectrum
+    flgrd( 3, 1)  = .false.  ! 1D Freq. Spectrum
     flgrd( 3, 2)  = .false. ! Mean wave dir. a1b1
     flgrd( 3, 3)  = .false. ! Mean dir. spr. a1b1
     flgrd( 3, 4)  = .false. ! Mean wave dir. a2b2
@@ -187,7 +200,7 @@ contains
     flgrd( 4,17)  =  .false. ! Number of partitions'
 
     ! 5) Atmosphere-waves layer
-    flgrd( 5, 1)  = .false. ! Friction velocity   '
+    flgrd( 5, 1)  = .true.  ! Friction velocity   '
     flgrd( 5, 2)  = .false. ! Charnock parameter  '
     flgrd( 5, 3)  = .false. ! Energy flux         '
     flgrd( 5, 4)  = .false. ! Wind-wave enrgy flux'
@@ -205,7 +218,7 @@ contains
     flgrd( 6, 3)  = .false. ! 'wave ind p Bern Head'
     flgrd( 6, 4)  = .false. ! 'Wave-ocean TKE  flux'
     flgrd( 6, 5)  = .false. ! 'Stokes transport    '
-    flgrd( 6, 6)  = .true.  ! 'Stokes drift at z=0 '
+    flgrd( 6, 6)  = .false.  ! 'Stokes drift at z=0 '
     flgrd( 6, 7)  = .false. ! '2nd order pressure  '
     flgrd( 6, 8)  = .false. ! 'Stokes drft spectrum'
     flgrd( 6, 9)  = .false. ! '2nd ord press spectr'
@@ -213,7 +226,14 @@ contains
     flgrd( 6,11)  = .false. ! 'Wave-ice energy flux'
     flgrd( 6,12)  = .false. ! 'Split Surface Stokes'
     flgrd( 6,13)  = .false. ! 'Tot wav-ocn mom flux'
-    flgrd( 6,13)  = .true.  ! 'Turbulent Langmuir number (La_t)'
+!PSH TheoryWaves begin (note: changed 13 to 14 for La_t)
+    flgrd( 6,14)  = .true.  ! 'Turbulent Langmuir number (La_t)'
+    flgrd( 6,15)  = .true.  ! 'Friction velocity (ocean)'
+    flgrd( 6,16)  = .true.  ! 'Enhancement factor'
+    flgrd( 6,17)  = .true.  ! 'Friction velocity (atm)'
+    flgrd( 6,18)  = .true.  ! 'Wind stress magnitude'
+    flgrd( 6,19)  = .true.  ! 'Wind stress direction'
+!PSH TheoryWaves end
 
     ! 7) Wave-bottom layer
     flgrd( 7, 1)  = .false. ! 'Bottom rms ampl.    '

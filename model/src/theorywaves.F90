@@ -1,6 +1,6 @@
 !|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
- module theorywaves
+ MODULE THEORYWAVES
 
 !BOP
 !\newpage
@@ -17,9 +17,9 @@
 !\\
 
 ! !USES:
-! CONSTANTS
+!  CONSTANTS
 !EOP
-      USE CONSTANTS, ONLY: GRAV, PI, ZERO, ONE
+USE CONSTANTS, ONLY: GRAV, PI, ZERO, ONE
 
   implicit none
 !  private
@@ -42,8 +42,6 @@
 !                               3.14159265358979323846_tw_r8
 !  real(tw_r8), parameter :: Gravity = &
 !                               9.80616_tw_r8
-
-
 ! !PUBLIC MEMBER FUNCTIONS:
 
   public :: EFactor_model
@@ -75,6 +73,8 @@ contains
     REAL, intent(in) :: u10, ustar, hbl
 
 ! Local variables
+!    real(tw_r8) :: us_sl, lasl_sqr_i
+!    real(tw_r8) :: EFactor_model
     REAL :: us_sl, lasl_sqr_i
     REAL :: EFactor_model
 
@@ -104,14 +104,15 @@ contains
 ! Qing Li, 20180130
 
 ! Input
-    real(tw_r8), intent(in) :: &
-        ! 10 meter wind (m/s)
-        u10, &
-        ! boundary layer depth (m)
-        hbl
+!    real(tw_r8), intent(in) :: &
+!        ! 10 meter wind (m/s)
+!        u10, &
+!        ! boundary layer depth (m)
+!        hbl
+    REAL :: u10, hbl
 ! Local variables
     ! parameters
-    real(tw_r8), parameter :: &
+    REAL, parameter :: &
         ! ratio of U19.5 to U10 (Holthuijsen, 2007)
         u19p5_to_u10 = 1.075, &
         ! ratio of mean frequency to peak frequency for
@@ -122,9 +123,12 @@ contains
         ! loss ratio of Stokes transport
         r_loss = 0.667
 
-    real(tw_r8) :: us, hm0, fm, fp, vstokes, kphil, kstar
-    real(tw_r8) :: z0, z0i, r1, r2, r3, r4, tmp
-    real(tw_r8) :: ustokes_SL_model
+!    real(tw_r8) :: us, hm0, fm, fp, vstokes, kphil, kstar
+!    real(tw_r8) :: z0, z0i, r1, r2, r3, r4, tmp
+!    real(tw_r8) :: ustokes_SL_model
+    REAL :: us, hm0, fm, fp, vstokes, kphil, kstar
+    REAL :: z0, z0i, r1, r2, r3, r4, tmp
+    REAL :: ustokes_SL_model
 
     if (u10 .gt. ZERO) then
       ! surface Stokes drift
@@ -177,4 +181,4 @@ contains
 
     end function ustokes_SL_model
 
-end module theorywaves
+END MODULE THEORYWAVES

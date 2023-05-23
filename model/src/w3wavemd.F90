@@ -452,6 +452,9 @@
       USE WAV_SHR_MOD , only : RSTWR, HISTWR
       USE W3IOGONCDMD , ONLY : W3IOGONCD
 #endif
+!PSH TheoryWaves begin
+    USE THEORYWAVES
+!PSH TheoryWaves end
 !
       IMPLICIT NONE
 !
@@ -2036,6 +2039,11 @@
        END IF
 #endif
 
+!PSH TheoryWave begin
+!skip main wave model
+!      GOTO 380
+!PSH TheoryWave end
+
 !
 ! 3.6 Perform Propagation = = = = = = = = = = = = = = = = = = = = = = =
 ! 3.6.1 Preparations
@@ -2815,6 +2823,25 @@
 !     (Branch point FLDRY, IT=0)
 !
   380     CONTINUE
+
+!PSH TheoryWave begin
+       DO ISEA = 1, NSEA
+         IX     = MAPSF(ISEA,1)
+         IY     = MAPSF(ISEA,2)
+         TAUTW(ISEA) = SQRT((TWTX0(IX,IY)**2)+(TWTY0(IX,IY)**2))
+         TAUDTW(ISEA) = ATAN2(TWTY0(IX,IY), TWTX0(IX,IY))
+         USTTW(ISEA) = MAX(1E-4, SQRT(TAUTW(ISEA) / RHOWTW(ISEA)))
+!         USTTW(ISEA) = MAX(1E-4, SQRT(TAUA(ISEA) / RHOWTW(ISEA)))
+!         USTTW(ISEA) = MAX(1E-4,SQRT(SQRT((TWTX0(ISEA)**2)+(TWTY0(ISEA)**2)) / RHOWTW(ISEA)))
+         if ( MAPSTA(IY,IX) .eq. 1 ) then
+           EFTW(ISEA) = EFactor_model(U10(ISEA), USTTW(ISEA), HML(IX,IY))
+         else
+           EFTW(ISEA) = EFactor_model(U10(ISEA), USTTW(ISEA), 0.)
+         end if
+       END DO
+
+!PSH TheoryWave end
+
 !
 #ifdef W3_DEBUGRUN
         WRITE(740+IAPROC,*) 'W3WAVE, step 6.20'
