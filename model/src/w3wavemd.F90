@@ -2835,8 +2835,10 @@
 !         USTTW(ISEA) = MAX(1E-4,SQRT(SQRT((TWTX0(ISEA)**2)+(TWTY0(ISEA)**2)) / RHOWTW(ISEA)))
          if ( MAPSTA(IY,IX) .eq. 1 ) then
            EFTW(ISEA) = EFactor_model(U10(ISEA), USTTW(ISEA), HML(IX,IY))
+           LAMULT(ISEA) = EFactor_model(U10(ISEA), USTTW(ISEA), HML(IX,IY))
          else
            EFTW(ISEA) = EFactor_model(U10(ISEA), USTTW(ISEA), 0.)
+           LAMULT(ISEA) = EFactor_model(U10(ISEA), USTTW(ISEA), 0.)
          end if
        END DO
 
